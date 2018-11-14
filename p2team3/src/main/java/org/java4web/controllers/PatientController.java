@@ -1,6 +1,8 @@
 package org.java4web.controllers;
 
 
+import org.java4web.model.Patient;
+import org.java4web.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import java.util.Map;
 
 @RestController
 public class PatientController {
-/*
+
 
     private final PatientRepository patientRepository;
 
@@ -27,10 +29,17 @@ public class PatientController {
         return patientRepository.save(patient);
     }
 
-    @GetMapping("/patients{id}")
+   /* @GetMapping("/patients{id}")
     public Patient getPatient(@PathVariable Long id) {
-        return patientRepository.findById(id);
+       return patientRepository.findById(id);
+
+    }*/
+
+    @GetMapping("/patients")
+    public List<Patient> getPatient() {
+
+        return patientRepository.findAll();
     }
 
-*/
+
 }
