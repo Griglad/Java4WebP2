@@ -2,22 +2,54 @@ package org.java4web.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Patient {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String firstName;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String lastName;
+
+    @NotNull
+    @Column(nullable = false, unique = true)
     private Long amka;
+
+    @NotNull
+    @Column(nullable = false,unique = true)
     private String email;
+
+    @NotNull
+    @Column(nullable = false)
     private Long mobilePhone;
+
+
+    @NotNull
+    @Column(nullable = false, unique = true)
+    @Size(max = 50)
     private String username;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String password;
 
     public Patient() {
     }
 
-    public Patient(String firtstName, String lastName,Long amka, String email, Long mobilePhone, String username,String password) {
+    public Patient(String firtstName, String lastName, Long amka, String email, Long mobilePhone, String username, String password) {
         this.firstName = firtstName;
         this.lastName = lastName;
         this.amka = amka;
@@ -28,8 +60,6 @@ public class Patient {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
