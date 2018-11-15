@@ -2,20 +2,46 @@ package org.java4web.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Doctor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String firstName;
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String lastName;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "specialty_id")
     private Specialty specialty;
+
+    @NotNull
+    @Column(nullable = false,unique =true)
+    @Size(max = 50)
     private String username;
+
+
+    @NotNull
+    @Column(nullable = false)
+    @Size(max = 30)
     private String password;
 
     public Doctor() {
     }
 
-    public Doctor(String firstname, String lastname, Specialty specialty,String username,String password) {
+    public Doctor(String firstname, String lastname, Specialty specialty, String username, String password) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.specialty = specialty;
@@ -24,8 +50,7 @@ public class Doctor {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Long getId() {
         return id;
     }
@@ -66,8 +91,7 @@ public class Doctor {
         this.password = password;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "specialty_id")
+
     public Specialty getSpecialty() {
         return specialty;
     }
@@ -80,7 +104,7 @@ public class Doctor {
     public String toString() {
         return String.format(
                 "Doctor[id=%d, first_name='%s',last_name='%s', specialty='%s']",
-                id, firstName, lastName,specialty.getName());
+                id, firstName, lastName, specialty.getName());
     }
 }
 

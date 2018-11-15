@@ -1,16 +1,37 @@
 package org.java4web.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 public class Appointment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id",nullable = false)
     private Patient patient;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor_id",nullable = false)
     private Doctor doctor;
+
+    @NotNull
+    @Column(nullable = false)
     private Date dateTime;
+
+    @NotNull
+    @Column(nullable = false)
     private String descr;
+
+    @NotNull
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String notes;
+
 
     public Appointment() {
     }
@@ -22,8 +43,7 @@ public class Appointment {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Long getId() {
         return id;
     }
@@ -32,8 +52,7 @@ public class Appointment {
         this.id = id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id")
+
     public Patient getPatient() {
         return patient;
     }
@@ -42,8 +61,7 @@ public class Appointment {
         this.patient = patient;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id")
+
     public Doctor getDoctor() {
         return doctor;
     }
