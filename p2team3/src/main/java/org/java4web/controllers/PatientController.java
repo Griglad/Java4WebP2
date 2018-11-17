@@ -1,6 +1,7 @@
 package org.java4web.controllers;
 
 
+import org.java4web.exceptions.PatientNotFoundException;
 import org.java4web.model.Patient;
 import org.java4web.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,10 @@ public class PatientController {
         return patientRepository.save(patient);
     }
 
-   /* @GetMapping("/patients{id}")
+    @GetMapping("/patients/{id}")
     public Patient getPatient(@PathVariable Long id) {
-       return patientRepository.findById(id);
-
-    }*/
-
-    @GetMapping("/patients")
-    public List<Patient> getPatient() {
-
-        return patientRepository.findAll();
+        return patientRepository.findById(id)
+                .orElseThrow(() -> new PatientNotFoundException(id));
     }
 
 

@@ -1,5 +1,6 @@
 package org.java4web.controllers;
 
+import org.java4web.exceptions.DoctorNotFoundException;
 import org.java4web.model.Doctor;
 import org.java4web.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class DoctorController {
 
     @GetMapping("/doctors/{username}")
     public Doctor getDoctor(@PathVariable String username){
-        return new Doctor();
-        //return doctorRepository.findById(id);
-                //.orElseThrow(() -> new DoctorNotFoundException(id));
+
+        return doctorRepository.findByUsername(username);
+             //   .orElseThrow(() -> new DoctorNotFoundException(username));
     }
 }
