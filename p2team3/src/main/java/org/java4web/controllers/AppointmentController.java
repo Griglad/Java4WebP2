@@ -1,6 +1,9 @@
 package org.java4web.controllers;
 
 
+import org.java4web.exceptions.AppointmentNotFoundException;
+import org.java4web.model.Appointment;
+import org.java4web.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,7 @@ import java.util.Map;
 @RestController
 public class AppointmentController {
 
-/*
+
     private final AppointmentRepository appointmentRepository;
 
     @Autowired
@@ -28,17 +31,21 @@ public class AppointmentController {
         return appointmentRepository.save(appointment);
     }
 
-    @GetMapping("/appointments{id}")
-    public Appointment getAppointment(@PathVariable Long id) {
-        return appointmentRepository.findById(id);
+    @GetMapping("/appointments/{id}")
+    public Appointment getAppointmentById(@PathVariable Long id) {
+
+            return  appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException(id));
     }
 
     @GetMapping("/appointments")
-    public List<Appointment>  getAppointmentsFromTo(@RequestParam Date from,@RequestParam Date to){
-        return appointmentRepository.findFromTo(pID,from,to);
-    }
+    public List<Appointment>  getAppointmentsFromTo(@RequestParam String from,@RequestParam String to){
+        long id=1;
 
-    @PutMapping("/appointments{id}")
+        return appointmentRepository.fin(id);
+    }
+/*
+    @PutMapping("/appointments/{id}")
     public Appointment updateAppointment(@PathVariable Long id,@RequestBody Appointment updatedAppointment){
 
 
@@ -50,8 +57,15 @@ public class AppointmentController {
         getAppointment(id);
         appointmentRepository.deleteById(id);
     }
-
 */
+
+
+
+
+
+
+
+
 
 
 }
