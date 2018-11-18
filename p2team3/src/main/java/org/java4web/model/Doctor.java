@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Doctor {
+public class Doctor implements CustomUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
