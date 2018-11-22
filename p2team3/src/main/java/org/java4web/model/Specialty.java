@@ -1,7 +1,10 @@
 package org.java4web.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,9 +17,8 @@ public class Specialty {
     private Long id;
 
 
-    @NotNull
-    @Column(nullable = false,unique = true)
-    @Size(max = 30)
+
+
     private String name;
 
     public Specialty() {

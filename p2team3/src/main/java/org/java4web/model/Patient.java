@@ -2,8 +2,9 @@ package org.java4web.model;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+
+import javax.validation.constraints.*;
 
 @Entity
 public class Patient {
@@ -13,43 +14,58 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "{first.not.blank}")
+    @NotNull(message = "{first.not.null}")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "{first.only.letters}")
     private String firstName;
 
-    @NotNull
+
+    @NotBlank(message = "{last.not.blank}")
+    @NotNull(message = "{last.not.null}")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "{last.only.letters}")
     private String lastName;
 
-    @NotNull
+    @NotBlank(message = "{amka.not.blank}")
+    @NotNull(message = "{amka.not.null}")
     @Column(nullable = false, unique = true)
-    private Long amka;
+    @Pattern(regexp = "^[0-9]{9}$", message = "{amka.only.digits}")
+    private String amka;
 
-    @NotNull
-    @Column(nullable = false,unique = true)
+
+    @NotBlank(message = "{email.not.blank}")
+    @NotNull(message = "{email.not.null")
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp = ".+@.+\\..+", message = "{email.valid}")
     private String email;
 
-    @NotNull
+
+    @NotBlank(message = "{mobile.not.blank}")
+    @NotNull(message = "{mobile.not.null")
     @Column(nullable = false)
-    private Long mobilePhone;
+    @Pattern(regexp = "^(\\d{10}|\\d{12})$", message = "{mobile.digits}")
+    private String mobilePhone;
 
 
-    @NotNull
+    @NotBlank(message = "{user.not.blank}")
+    @NotNull(message = "{user.not.null}")
     @Column(nullable = false, unique = true)
-    @Size(max = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{user.letters.digits}")
+    @Size(min = 6, max = 30, message = "{user.size}")
     private String username;
 
-    @NotNull
+    @NotBlank(message = "{pass.not.blank}")
+    @NotNull(message = "{pass.not.null}")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{pass.letters.digits}")
+    @Size(min = 6, max = 30, message = "{pass.size}")
     private String password;
 
     public Patient() {
     }
 
-    public Patient(String firtstName, String lastName, Long amka, String email, Long mobilePhone, String username, String password) {
+    public Patient(String firtstName, String lastName, String amka, String email, String mobilePhone, String username, String password) {
         this.firstName = firtstName;
         this.lastName = lastName;
         this.amka = amka;
@@ -84,11 +100,11 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public Long getAmka() {
+    public String getAmka() {
         return amka;
     }
 
-    public void setAmka(Long amka) {
+    public void setAmka(String amka) {
         this.amka = amka;
     }
 
@@ -100,11 +116,11 @@ public class Patient {
         this.email = email;
     }
 
-    public Long getMobilePhone() {
+    public String getMobilePhone() {
         return mobilePhone;
     }
 
-    public void setMobilePhone(Long mobilePhone) {
+    public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
 

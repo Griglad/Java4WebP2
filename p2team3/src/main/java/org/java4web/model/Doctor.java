@@ -2,7 +2,10 @@ package org.java4web.model;
 
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -12,30 +15,41 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "First name must not be blank")
+    @NotNull(message = "First name must not be null")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "First name should contain only letters")
     private String firstName;
 
-    @NotNull
+
+    @NotBlank(message = "Last name must not be blank")
+    @NotNull(message = "Last name must not be Null")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should contain only letters")
     private String lastName;
 
 
+
+    @NotBlank(message = "Specialty must not be blank")
+    @NotNull(message = "Specialty must not be null")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
 
-    @NotNull
-    @Column(nullable = false,unique =true)
-    @Size(max = 50)
+
+    @NotBlank(message = "Username cannot be blank")
+    @NotNull(message = "Username cannot be null")
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
+    @Size(min = 6, max = 30, message = "Please provide a username from 6-30 characters")
     private String username;
 
 
-    @NotNull
+    @NotBlank(message = "Password cannot be blank")
+    @NotNull(message = "Password cannot be null")
     @Column(nullable = false)
-    @Size(max = 30)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
+    @Size(min = 6, max = 30, message = "Please provide a password from 6-30 characters")
     private String password;
 
     public Doctor() {
@@ -48,7 +62,6 @@ public class Doctor {
         this.username = username;
         this.password = password;
     }
-
 
 
     public Long getId() {
