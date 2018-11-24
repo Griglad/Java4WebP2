@@ -28,8 +28,15 @@ public class PatientController {
         this.patientRepository = patientRepository;
 
     }
+/*
+    @PostMapping("/patients")
+    public Patient newPatient(@RequestBody Patient patient){
+        return patientRepository.save(patient);
+    }
+    */
 
-    @PostMapping(value = "/save")
+
+    @PostMapping("/patients")
     public
     Patient newPatient(@RequestBody @Valid Patient patient) {
 
@@ -48,10 +55,10 @@ public class PatientController {
             throw new CreateRecordException(ExceptionMessages.USERNAME_ALREADY_EXISTS.getErrorMessage());
         }
 
-        patientRepository.save(patient);
+        return patientRepository.save(patient);
 
 
-        return null;
+
     }
 
 
