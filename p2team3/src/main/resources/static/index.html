@@ -7,9 +7,9 @@
   <title> Login page </title>
 
   <!-- Styles -->
-  <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">-->
-  <!--<link rel="stylesheet" href="styles/main.css">-->
-  <!--<link rel="stylesheet" href="styles/guest.css">-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/guest.css">
 
   <!-- Javascript files -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -30,14 +30,14 @@
     <form>
       <div class="field">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" value="" placeholder="Type your username">
+        <input type="text" name="username" value="" placeholder="Type your username">
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" value="" placeholder="Type your password">
+        <input type="password" name="password" value="" placeholder="Type your password">
       </div>
-      <input type="button" value="Login" onclick="login(username,password,password);">
-      <a href="./pages/guest/register.html">Register</a>
+      <input type="button" value="Login" onclick="login(username,password, password);">
+      <a href="registration.html">Register</a>
     </form>
   </section>
 

@@ -70,5 +70,4 @@ function register(usernameElement, passwordElement, firstnameElement, lastnameEl
 
     }
     );
-
 }

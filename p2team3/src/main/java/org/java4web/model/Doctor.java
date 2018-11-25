@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Doctor implements CustomUser{
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,6 +38,7 @@ public class Doctor implements CustomUser{
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
 
+
     @NotBlank(message = "Username cannot be blank")
     @NotNull(message = "Username cannot be null")
     @Column(nullable = false, unique = true)
@@ -49,8 +51,8 @@ public class Doctor implements CustomUser{
     @NotNull(message = "Password cannot be null")
     @Column(nullable = false)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
-    @Size(min = 6, max = 60, message = "Please provide a password from 6-30 characters")
 
+    @Size(min = 6, max = 60, message = "Please provide a password from 6-30 characters")
     private String password;
 
     public Doctor() {

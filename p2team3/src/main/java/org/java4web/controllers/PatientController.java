@@ -1,6 +1,5 @@
 package org.java4web.controllers;
 
-
 import org.java4web.exceptions.CreateRecordException;
 import org.java4web.exceptions.ExceptionMessages;
 import org.java4web.exceptions.PatientException;
@@ -31,8 +30,7 @@ public class PatientController {
     public Patient newPatient(@RequestBody @Valid Patient patient){
         return patientService.newPatient(patient);
     }
-
-
+    
     @GetMapping("/patients/{id}")
     public Patient getPatient(@PathVariable Long id) {
         return patientService.getPat(id);

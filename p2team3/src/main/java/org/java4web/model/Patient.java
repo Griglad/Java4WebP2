@@ -7,14 +7,14 @@ import javax.validation.constraints.Size;
 
 import javax.validation.constraints.*;
 
-@Entity
+import javax.validation.constraints.*;
 
+@Entity
 public class Patient implements CustomUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @NotBlank(message = "{first.not.blank}")
     @NotNull(message = "{first.not.null}")
@@ -61,6 +61,7 @@ public class Patient implements CustomUser {
     @NotNull(message = "{pass.not.null}")
     @Column(nullable = false)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{pass.letters.digits}")
+
     @Size(max = 60, message = "{pass.size}")
     private String password;
 

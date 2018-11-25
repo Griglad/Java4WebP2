@@ -8,6 +8,11 @@ import org.java4web.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
+
 @Service
 public class PatientService {
 
@@ -16,7 +21,6 @@ public class PatientService {
     @Autowired
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-
     }
 
     public Patient newPatient(Patient patient) {
@@ -31,14 +35,10 @@ public class PatientService {
         }
 
         if (patientRepository.findByUsername(patient.getUsername()) != null) {
-
             throw new CreateRecordException(ExceptionMessages.USERNAME_ALREADY_EXISTS.getErrorMessage());
         }
 
        return patientRepository.save(patient);
-
-
-
     }
 
     public Patient getPat(Long id) {
