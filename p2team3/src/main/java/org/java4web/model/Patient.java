@@ -25,7 +25,7 @@ public class Patient implements CustomUser {
 
     @NotNull
     @Column(nullable = false, unique = true)
-    private Long amka;
+    private String amka;
 
     @NotNull
     @Column(nullable = false,unique = true)
@@ -33,7 +33,7 @@ public class Patient implements CustomUser {
 
     @NotNull
     @Column(nullable = false)
-    private Long mobilePhone;
+    private String mobilePhone;
 
 
     @NotNull
@@ -43,13 +43,13 @@ public class Patient implements CustomUser {
 
     @NotNull
     @Column(nullable = false)
-    @Size(max = 30)
+    @Size(max = 200)
     private String password;
 
     public Patient() {
     }
 
-    public Patient(String firtstName, String lastName, Long amka, String email, Long mobilePhone, String username, String password) {
+    public Patient(String firtstName, String lastName, String amka, String email, String mobilePhone, String username, String password) {
         this.firstName = firtstName;
         this.lastName = lastName;
         this.amka = amka;
@@ -84,11 +84,11 @@ public class Patient implements CustomUser {
         this.lastName = lastName;
     }
 
-    public Long getAmka() {
+    public String getAmka() {
         return amka;
     }
 
-    public void setAmka(Long amka) {
+    public void setAmka(String amka) {
         this.amka = amka;
     }
 
@@ -100,11 +100,11 @@ public class Patient implements CustomUser {
         this.email = email;
     }
 
-    public Long getMobilePhone() {
+    public String getMobilePhone() {
         return mobilePhone;
     }
 
-    public void setMobilePhone(Long mobilePhone) {
+    public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
 

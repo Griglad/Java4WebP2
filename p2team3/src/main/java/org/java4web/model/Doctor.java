@@ -35,7 +35,7 @@ public class Doctor implements CustomUser {
 
     @NotNull
     @Column(nullable = false)
-    @Size(max = 30)
+    @Size(max = 100)
     private String password;
 
     public Doctor() {
