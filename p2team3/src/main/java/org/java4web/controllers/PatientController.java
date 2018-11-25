@@ -25,12 +25,21 @@ public class PatientController {
         this.patientService = patientService;
 
     }
+/*
+    @PostMapping("/patients")
+    public Patient newPatient(@RequestBody Patient patient){
+        return patientRepository.save(patient);
+    }
+    */
+
+
 
     @PostMapping(value = "/save")
     public Patient newPatient(@RequestBody @Valid Patient patient) {
 
         Patient pat = patientService.newPatient(patient);
         return pat;
+
     }
 
 
