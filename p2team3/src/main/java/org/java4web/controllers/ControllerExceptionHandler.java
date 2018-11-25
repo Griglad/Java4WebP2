@@ -1,6 +1,7 @@
 package org.java4web.controllers;
 
 import org.java4web.exceptions.CreateRecordException;
+import org.java4web.exceptions.DoctorNotFoundException;
 import org.java4web.exceptions.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,16 @@ public class ControllerExceptionHandler {
 
         return new ResponseEntity<Object>(ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);
 
+    }
+
+
+    @ExceptionHandler(value = {DoctorNotFoundException.class})
+        public ResponseEntity<ErrorResponse>handleDoctorNotFoundException(DoctorNotFoundException ex)
+    {
+       ErrorResponse errorResponse = new ErrorResponse();
+       errorResponse.setErrorCode(HttpStatus.NOT_FOUND.value());
+       errorResponse.setMessage(ex.getMessage());
+       return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.NOT_FOUND);
     }
 
 

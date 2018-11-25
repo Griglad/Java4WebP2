@@ -3,7 +3,6 @@ package org.java4web.model;
 
 import javax.persistence.*;
 
-
 import javax.validation.constraints.*;
 
 @Entity
