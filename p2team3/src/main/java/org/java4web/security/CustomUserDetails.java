@@ -13,7 +13,7 @@ import java.util.Map;
 public class CustomUserDetails implements UserDetails {
     private final CustomUser user;
 
-    private final Map<String, Role> userRolesMap;
+    private final Map<String, UserRole> userRolesMap;
 
     public CustomUserDetails(CustomUser user){
         this.user = user;
@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String userRole = userRolesMap.getOrDefault(user.getUsername(), Role.PATIENT).name();
+        String userRole = userRolesMap.getOrDefault(user.getUsername(), UserRole.PATIENT).name();
         return Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_" + userRole));
     }
@@ -45,10 +45,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() { return true; }
 
-    private Map<String, Role> createPrivilegedUserRoles(CustomUser user){
-        HashMap<String, Role> map = new HashMap<>();
-        map.put("admin", Role.ADMIN);
-        map.put("doctor", Role.DOCTOR);
+    private Map<String, UserRole> createPrivilegedUserRoles(CustomUser user){
+        HashMap<String, UserRole> map = new HashMap<>();
+        map.put("admin", UserRole.ADMIN);
+        map.put("doctor", UserRole.DOCTOR);
         return map;
     }
 }

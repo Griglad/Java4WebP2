@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Login page </title>
+
+  <!-- Styles -->
+  <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">-->
+  <!--<link rel="stylesheet" href="styles/main.css">-->
+  <!--<link rel="stylesheet" href="styles/guest.css">-->
+
+  <!-- Javascript files -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="scripts/config/main.js"></script>
+  <script src="scripts/security/guest-auth.js"></script>
+  <script src="scripts/guest/authentication.js"></script>
+</head>
+
+<body>
+
+  <!-- Page name -->
+  <header class="center">
+    <h2>Login page</h2>
+  </header>
+
+  <!-- Login form -->
+  <section class="center">
+    <form>
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="" placeholder="Type your username">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" value="" placeholder="Type your password">
+      </div>
+      <input type="button" value="Login" onclick="login(username,password,password);">
+      <a href="./pages/guest/register.html">Register</a>
+    </form>
+  </section>
+
+</body>
+
+</html>

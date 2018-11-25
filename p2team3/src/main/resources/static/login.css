@@ -1,0 +1,31 @@
+body{
+    background-image: url("background.png");
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+h1{
+   
+    text-align: center;
+   
+   
+    width: 50%;
+   
+   
+    
+}
+
+form{
+   
+    width: 50%;
+    margin:20px;
+}
+
+#reg{
+  text-align: center;
+    color: blue;
+}

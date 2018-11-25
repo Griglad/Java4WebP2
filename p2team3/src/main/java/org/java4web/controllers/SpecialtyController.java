@@ -20,7 +20,7 @@ public class SpecialtyController {
     public List<Specialty> getSpecialties() { return specialtyRepository.findAll(); }
 
     @GetMapping("/specialties/{id}")
-    public Specialty getBook(@PathVariable Long id) {
+    public Specialty getSpecialty(@PathVariable Long id) {
         return new Specialty();
         //return specialtyRepository.findById(id);
                 //.orElseThrow(() -> new SpecialtyNotFoundException(id));

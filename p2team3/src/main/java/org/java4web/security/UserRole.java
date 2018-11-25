@@ -1,13 +1,13 @@
 package org.java4web.security;
 
-public enum Role {
+public enum UserRole {
     ADMIN ('a'),
     PATIENT ('p'),
     DOCTOR ('d');
 
     private final char prefix;
 
-    private Role(char c) {
+    private UserRole(char c) {
         prefix = c;
     }
 

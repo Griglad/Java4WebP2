@@ -1,40 +1,40 @@
 package org.java4web.controllers;
 
 
-import org.java4web.exceptions.PatientNotFoundException;
+import org.java4web.exceptions.CreateRecordException;
+import org.java4web.exceptions.ExceptionMessages;
+import org.java4web.exceptions.PatientException;
 import org.java4web.model.Patient;
 import org.java4web.repositories.PatientRepository;
+import org.java4web.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.Valid;
+
 
 @RestController
 public class PatientController {
 
 
-    private final PatientRepository patientRepository;
+    private PatientService patientService;
+
 
     @Autowired
-    public PatientController(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
+
     }
 
     @PostMapping("/patients")
-    public Patient newPatient(@RequestBody Patient patient){
-        return patientRepository.save(patient);
+    public Patient newPatient(@RequestBody @Valid Patient patient){
+        return patientService.newPatient(patient);
     }
+
 
     @GetMapping("/patients/{id}")
     public Patient getPatient(@PathVariable Long id) {
-        return patientRepository.findById(id)
-                .orElseThrow(() -> new PatientNotFoundException(id));
+        return patientService.getPat(id);
     }
-
-
 }

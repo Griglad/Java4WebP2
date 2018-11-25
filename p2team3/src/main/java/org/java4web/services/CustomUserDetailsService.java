@@ -5,9 +5,8 @@ import org.java4web.model.CustomUser;
 import org.java4web.repositories.DoctorRepository;
 import org.java4web.repositories.PatientRepository;
 import org.java4web.security.CustomUserDetails;
-import org.java4web.security.Role;
+import org.java4web.security.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,9 +38,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public CustomUser findUserByUsername(String username, char role) throws RoleNotFoundException {
 
-        if(role == Role.DOCTOR.getPrefix()){
+        if(role == UserRole.DOCTOR.getPrefix()){
             return doctorRepository.findByUsername(username);
-        } else if(role == Role.PATIENT.getPrefix()) {
+        } else if(role == UserRole.PATIENT.getPrefix()) {
             return patientRepository.findByUsername(username);
         }
         throw new RoleNotFoundException(role);
