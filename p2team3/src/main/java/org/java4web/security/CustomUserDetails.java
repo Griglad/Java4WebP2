@@ -1,6 +1,8 @@
 package org.java4web.security;
 
 import org.java4web.model.CustomUser;
+import org.java4web.model.Doctor;
+import org.java4web.model.Patient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,16 +15,13 @@ import java.util.Map;
 public class CustomUserDetails implements UserDetails {
     private final CustomUser user;
 
-    private final Map<String, UserRole> userRolesMap;
-
     public CustomUserDetails(CustomUser user){
         this.user = user;
-        this.userRolesMap = createPrivilegedUserRoles(user);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String userRole = userRolesMap.getOrDefault(user.getUsername(), UserRole.PATIENT).name();
+        String userRole = getPrivilegedUserRole();
         return Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_" + userRole));
     }
@@ -45,10 +44,13 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() { return true; }
 
-    private Map<String, UserRole> createPrivilegedUserRoles(CustomUser user){
-        HashMap<String, UserRole> map = new HashMap<>();
-        map.put("admin", UserRole.ADMIN);
-        map.put("doctor", UserRole.DOCTOR);
-        return map;
+    private String getPrivilegedUserRole(){
+        if(user instanceof Doctor){
+            return UserRole.DOCTOR.name();
+        }else if(user instanceof Patient){
+            return UserRole.PATIENT.name();
+        }else{
+            return UserRole.ADMIN.name();
+        }
     }
 }
