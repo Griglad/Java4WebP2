@@ -29,8 +29,12 @@ $(document).ready(function(){
                     break;
                 case "confirmpassword":
                     let pass = $("input[name=\"password\"]").val();
-                    var regex = new RegExp(pass+"{1,}$");
-                    validate(this,value,regex); 
+                    var regex = new RegExp("^"+pass+"$");
+                    validate(this,value,regex);
+                    if(pass.length<1){
+                    $(this).removeClass("valid-data");
+                    $(this).addClass("invalid-data");
+                    }
                     break;
                 default:
                     console.warn("Wrong validation name.", validation_type);
