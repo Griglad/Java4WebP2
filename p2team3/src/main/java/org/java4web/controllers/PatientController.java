@@ -1,19 +1,18 @@
 package org.java4web.controllers;
 
-import org.java4web.exceptions.CreateRecordException;
-import org.java4web.exceptions.ExceptionMessages;
-import org.java4web.exceptions.PatientException;
 import org.java4web.model.Patient;
-import org.java4web.repositories.PatientRepository;
 import org.java4web.services.PatientService;
+import org.java4web.utils.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 
 @RestController
+@Validated
 public class PatientController {
 
 
@@ -27,8 +26,8 @@ public class PatientController {
     }
 
     @PostMapping("/patients")
-    public Patient newPatient(@RequestBody @Valid Patient patient){
-        return patientService.newPatient(patient);
+    public Patient newPatient(@RequestBody @Valid PatientDto patientDto){
+        return patientService.newPatient(patientDto);
     }
     
     @GetMapping("/patients/{id}")

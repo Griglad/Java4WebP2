@@ -17,43 +17,28 @@ public class Doctor implements CustomUser{
     private Long id;
 
 
-    @NotBlank(message = "First name must not be blank")
-    @NotNull(message = "First name must not be null")
     @Column(nullable = false)
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "First name should contain only letters")
-    private String firstName;
+    protected String firstName;
 
 
-    @NotBlank(message = "Last name must not be blank")
-    @NotNull(message = "Last name must not be Null")
     @Column(nullable = false)
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should contain only letters")
-    private String lastName;
+    protected String lastName;
 
 
 
-    @NotBlank(message = "Specialty must not be blank")
-    @NotNull(message = "Specialty must not be null")
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "specialty_id")
-    private Specialty specialty;
+    protected Specialty specialty;
 
 
-    @NotBlank(message = "Username cannot be blank")
-    @NotNull(message = "Username cannot be null")
+
     @Column(nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
-    @Size(min = 6, max = 30, message = "Please provide a username from 6-30 characters")
-    private String username;
+    protected String username;
 
 
-    @NotBlank(message = "Password cannot be blank")
-    @NotNull(message = "Password cannot be null")
     @Column(nullable = false)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
-
-    @Size(min = 6, max = 60, message = "Please provide a password from 6-30 characters")
-    private String password;
+    protected String password;
 
     public Doctor() {
     }
