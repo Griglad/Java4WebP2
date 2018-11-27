@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Εγγραφή Νέου Ασθενή</title>
+    <!--css bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!-- css local-->
+
+
+    <!--javascript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #registerForm { 
+            margin-top: 100px; 
+                      
+            
+        }
+        #cardBody {
+            padding-left: 80px;  
+        
+        }
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+}
+
+#windowHeader{text-align: center}
+
+body {
+    background-image: url("bg.png");
+}
+
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid col-6 ">
+        <div class="card" id="registerForm">
+            <h5 id="windowHeader" class="card-header h5 ">Εγγραφή Ασθενή</h5>
+            <div class="card-body" id="cardBody">
+
+
+
+
+                <div class="row ">
+
+                    <input type="text" class="form-control col-md-5 mt-4 mr-4 " id="inputName" placeholder="Όνομα">
+
+                    <input type="text" class="form-control col-md-5 mt-4" id="inputLastname" placeholder="Επίθετο">
+
+                </div>
+
+                <div class="row">
+
+                    <input type="text" class="form-control col-md-5 mt-4 mr-4" id="inputAmka" placeholder="ΑΜΚΑ">
+
+                    <input type="text" class="form-control col-md-5 mt-4" id="inputMobile" placeholder="Κινητό τηλέφωνο">
+                </div>
+
+                <div class="row">
+
+                    <input type="email" class="form-control col-md-5 mt-4 mr-4" id="inputEmail" placeholder="Email">
+                    <input type="password" class="form-control col-md-5 mt-4" id="inputPassword" placeholder="Κωδικός Πρόσβασης">
+
+                </div>
+
+                <div class="row">
+                    <input type="text" class="form-control col-md-5 mt-4 mr-4" id="inputUsername" placeholder="Όνομα Χρήστη">
+                    <input type="password" class="form-control  col-md-5 mt-4" id="inputPasswordAgain" placeholder="Επιβεβαίωση κωδικού πρόσβασης">
+                </div>
+
+                <div class="row">
+                    <button type="submit" class="btn btn-primary offset-md-6 mt-4" id="buttonBack">Πίσω</button>
+                    <button type="submit" class="btn btn-primary offset-md-1 mt-4" id="buttonSubmit">Εγγραφή</button>
+                </div>
+
+
+                <!--This is a hidden message to be show only in case of failed registration atempt -->
+                <div hidden class="alert alert-danger mt-4" id="exepUsrnExist" role="alert">
+                    Username already exists
+                </div>
+                <div hidden class="alert alert-danger mt-4" id="exepAmkaUsrnExist" role="alert">
+                    AMKA already exists
+                </div>
+                <div hidden class="alert alert-danger mt-4" id="exepInvalidPass" role="alert">
+                    Invalid password
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>
