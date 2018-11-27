@@ -4,15 +4,11 @@ package org.java4web.controllers;
 import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.model.Appointment;
 import org.java4web.repositories.AppointmentRepository;
+import org.java4web.utils.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class AppointmentController {
@@ -20,15 +16,24 @@ public class AppointmentController {
 
     private final AppointmentRepository appointmentRepository;
 
+
+    @Autowired
+    private AppointmentDto appointmentDto;
+
     @Autowired
     public AppointmentController(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+
     }
 
 
     @PostMapping("/appointments")
-    public Appointment newAppointment(@RequestBody Appointment appointment){
-        return appointmentRepository.save(appointment);
+    public Appointment newAppointment(@RequestBody AppointmentDto appointmentDto){
+
+
+
+        return null;
+
     }
 
     @GetMapping("/appointments/{id}")
@@ -44,6 +49,8 @@ public class AppointmentController {
 
         return appointmentRepository.fin(id);
     }
+
+
 /*
     @PutMapping("/appointments/{id}")
     public Appointment updateAppointment(@PathVariable Long id,@RequestBody Appointment updatedAppointment){

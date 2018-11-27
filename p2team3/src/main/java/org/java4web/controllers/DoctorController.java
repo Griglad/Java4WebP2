@@ -22,11 +22,15 @@ public class DoctorController {
     @GetMapping("/doctors")
     public List<Doctor> getDoctors() {
         return doctorService.getAll();
+
     }
 
+
     @GetMapping("/doctors/{username}")
-    public Doctor getDoctor(@PathVariable String username){
+    public Doctor getDoctor(@PathVariable String username) {
         return doctorService.getDoc(username);
 
     }
+
+
 }

@@ -1,5 +1,8 @@
 package org.java4web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,18 +14,23 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id",nullable = false)
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id",nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @NotNull
     @Column(nullable = false)
-    private Date dateTime;
+    private String date;
+
+    @NotNull
+    @Column(nullable = false)
+    private String time;
 
     @NotNull
     @Column(nullable = false)
@@ -36,13 +44,15 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Date dateTime, String descr, String notes) {
-        this.dateTime = dateTime;
+
+
+    public Appointment(Doctor doctor, @NotNull String date, @NotNull String time, @NotNull String descr, @NotNull String notes) {
+        this.doctor = doctor;
+        this.date = date;
+        this.time = time;
         this.descr = descr;
         this.notes = notes;
     }
-
-
 
     public Long getId() {
         return id;
@@ -70,12 +80,20 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getDescr() {
@@ -96,9 +114,15 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return String.format(
-                "Appointment[id=%d, patient_id='%d', doctor_id='%d', date=%d, description='%s', notes='%s']",
-                id, patient.getId(), doctor.getId(), dateTime, descr, notes);
+        return "Appointment{" +
+                "id=" + id +
+                ", patient=" + patient +
+                ", doctor=" + doctor +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", descr='" + descr + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }
 
