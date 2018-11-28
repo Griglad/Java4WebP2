@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 
 public class PatientDto extends Patient {
 
-
     @NotBlank(message = "{first.not.blank}")
     @NotNull(message = "{first.not.null}")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "{first.only.letters}")
@@ -19,12 +18,9 @@ public class PatientDto extends Patient {
     }
 
 
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-
 
 
     @NotBlank(message = "{last.not.blank}")
@@ -45,7 +41,6 @@ public class PatientDto extends Patient {
     public String getEmail() {
         return email;
     }
-
 
 
     public void setEmail(String email) {
@@ -86,7 +81,6 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{pass.not.blank}")
     @NotNull(message = "{pass.not.null}")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{pass.letters.digits}")
     @Size(max = 60, message = "{pass.size}")
     public String getPassword() {
         return super.getPassword();

@@ -2,6 +2,7 @@ package org.java4web.model;
 
 
 import org.java4web.WebAppConfig;
+import org.java4web.security.UserRole;
 import org.java4web.utils.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,10 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.*;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Entity
-public class Patient implements CustomUser {
+public class Patient implements CustomUser{
 
 
 
@@ -39,7 +41,6 @@ public class Patient implements CustomUser {
 
 
     @Column(nullable = false, unique = true)
-
     protected String email;
 
 

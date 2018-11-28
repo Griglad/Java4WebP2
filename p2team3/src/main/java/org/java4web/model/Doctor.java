@@ -1,6 +1,8 @@
 package org.java4web.model;
 
 
+import org.java4web.security.UserRole;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -86,6 +88,7 @@ public class Doctor implements CustomUser{
     public String getPassword() {
         return password;
     }
+
 
     public void setPassword(String password) {
         this.password = password;

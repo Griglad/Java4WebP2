@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    @Query(value ="select * from appointment where id = :?1", nativeQuery = true)
-    List<Appointment> fin(Long id);
+//    @Query(value ="select * from appointment where id = :?1", nativeQuery = true)
+//    List<Appointment> fin(Long id);
 }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -12,41 +13,39 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    protected Patient patient;
 
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id", nullable = false)
-    private Doctor doctor;
+    protected Doctor doctor;
 
-    @NotNull
+
     @Column(nullable = false)
-    private String date;
+    protected String date;
 
-    @NotNull
+
     @Column(nullable = false)
-    private String time;
+    protected String time;
 
-    @NotNull
+
     @Column(nullable = false)
-    private String descr;
+    protected String descr;
 
-    @NotNull
+
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String notes;
+    protected String notes;
 
 
     public Appointment() {
     }
 
-
-
-    public Appointment(Doctor doctor, @NotNull String date, @NotNull String time, @NotNull String descr, @NotNull String notes) {
+    public Appointment(Doctor doctor, String date, String time, String descr, String notes) {
         this.doctor = doctor;
         this.date = date;
         this.time = time;
@@ -62,7 +61,6 @@ public class Appointment {
         this.id = id;
     }
 
-
     public Patient getPatient() {
         return patient;
     }
@@ -70,7 +68,6 @@ public class Appointment {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
 
     public Doctor getDoctor() {
         return doctor;
@@ -100,8 +97,8 @@ public class Appointment {
         return descr;
     }
 
-    public void setDescr(String desc) {
-        this.descr = desc;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public String getNotes() {
@@ -110,19 +107,6 @@ public class Appointment {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", patient=" + patient +
-                ", doctor=" + doctor +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", descr='" + descr + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
     }
 }
 
