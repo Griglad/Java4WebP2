@@ -1,16 +1,15 @@
 package org.java4web.services;
 
 import org.java4web.exceptions.DoctorNotFoundException;
-import org.java4web.model.Appointment;
-import org.java4web.model.CustomUser;
-import org.java4web.model.Doctor;
-import org.java4web.model.Patient;
+import org.java4web.model.*;
 import org.java4web.repositories.AppointmentRepository;
 import org.java4web.repositories.DoctorRepository;
 import org.java4web.repositories.PatientRepository;
+import org.java4web.repositories.SpecialtyRepository;
 import org.java4web.security.UserRole;
 import org.java4web.utils.AppointmentDto;
 import org.java4web.utils.PatientDto;
+import org.java4web.utils.SpecialtyDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,14 +29,15 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final AppointmentRepository appointmentRepository;
+    private final SpecialtyRepository specialtyRepository;
 
 
     public AppointmentService(AppointmentRepository appointmentRepository, PatientRepository patientRepository,
-                              DoctorRepository doctorRepository) {
+                              DoctorRepository doctorRepository,SpecialtyRepository specialtyRepository) {
         this.appointmentRepository = appointmentRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
-
+        this.specialtyRepository = specialtyRepository;
 
     }
 
@@ -76,6 +77,21 @@ public class AppointmentService {
         return appointmentRepository.save(entityAppointment);
 
     }
+
+
+
+    public List<Appointment> getAppointments(Principal principal, String specialtyName)
+    {
+                 Specialty specialtyForAppointment = specialtyRepository.findByName(specialtyName);
+
+
+
+               return appointmentRepository.findBySpecialty(specialtyForAppointment.getName());
+    }
+
+
+
+
 
 
 //        modelMapper.addMappings(new PropertyMap<AppointmentDto, Appointment>() {

@@ -3,9 +3,11 @@ package org.java4web.controllers;
 
 import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.model.Appointment;
+import org.java4web.model.Specialty;
 import org.java4web.repositories.AppointmentRepository;
 import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
+import org.java4web.utils.SpecialtyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,6 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
 
-
-
     @Autowired
     public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
@@ -30,10 +30,10 @@ public class AppointmentController {
 
 
     @PostMapping("/appointments")
-    public Appointment newAppointment(@RequestBody @Valid AppointmentDto appointmentDto, Principal principal){
+    public Appointment newAppointment(@RequestBody @Valid AppointmentDto appointmentDto, Principal principal) {
 
 
-        return appointmentService.newAppointment(appointmentDto,principal);
+        return appointmentService.newAppointment(appointmentDto, principal);
 
     }
 
@@ -68,12 +68,12 @@ public class AppointmentController {
 */
 
 
+    @GetMapping("/appointments/{specialtyName}")
+    public List<Appointment> getAppointments(@PathVariable String specialtyName, Principal principal) {
+        return appointmentService.getAppointments(principal, specialtyName);
 
 
-
-
-
-
+    }
 
 
 }
