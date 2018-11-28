@@ -86,7 +86,6 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{pass.not.blank}")
     @NotNull(message = "{pass.not.null}")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{pass.letters.digits}")
     @Size(max = 60, message = "{pass.size}")
     public String getPassword() {
         return super.getPassword();

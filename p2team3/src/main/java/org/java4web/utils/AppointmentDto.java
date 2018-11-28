@@ -1,12 +1,10 @@
 package org.java4web.utils;
 
-import jdk.nashorn.internal.runtime.PropertyMap;
 import org.java4web.model.Appointment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppointmentDto extends Appointment {
+public class AppointmentDto {
 
     private Long doctorId;
     private String date;
@@ -54,9 +52,7 @@ public class AppointmentDto extends Appointment {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
-
-    }
+}
 
 
 

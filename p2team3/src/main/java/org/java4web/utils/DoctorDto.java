@@ -41,7 +41,6 @@ public class DoctorDto extends Doctor {
 
     @NotBlank(message = "Password cannot be blank")
     @NotNull(message = "Password cannot be null")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please provide a password with letters from A-Z and digits from 0-9")
     @Size(min = 6, max = 60, message = "Please provide a password from 6-30 characters")
     public String getPassword() {
         return super.getPassword();
