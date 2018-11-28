@@ -25,6 +25,14 @@ public class AppointmentController {
 
     }
 
+    @GetMapping("/appointments")
+    public List<Appointment> getAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
+                                             @RequestParam(value = "from", required = false) String dateFrom,
+                                             @RequestParam(value = "to", required = false) String dateTo, Principal principal) {
+        return appointmentService.getAppointments(principal, specialtyName, dateFrom, dateTo);
+
+
+    }
 
     @PostMapping("/appointments")
     public Appointment newAppointment(@RequestBody @Valid AppointmentDto appointmentDto, Principal principal) {
@@ -65,12 +73,6 @@ public class AppointmentController {
 */
 
 
-    @GetMapping("/appointments/{specialtyName}")
-    public List<Appointment> getAppointments(@PathVariable String specialtyName, Principal principal) {
-        return appointmentService.getAppointments(principal, specialtyName);
-
-
-    }
 
 
 }

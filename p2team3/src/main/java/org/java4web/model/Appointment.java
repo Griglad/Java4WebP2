@@ -5,7 +5,6 @@ import org.java4web.utils.Utils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -28,7 +27,7 @@ public class Appointment {
 
     @Column(nullable = false, columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date datetime;
+    protected Date dateTime;
 
     @Column(nullable = false)
     protected String descr;
@@ -43,7 +42,7 @@ public class Appointment {
     public Appointment(Doctor doctor, @NotNull Date datetime, @NotNull String descr, @NotNull String notes) {
         this.doctor = doctor;
         Utils.dateFormat.format(datetime);
-        this.datetime = datetime;
+        this.dateTime = datetime;
         this.descr = descr;
         this.notes = notes;
     }
@@ -73,12 +72,12 @@ public class Appointment {
     }
 
     public Date getDate() {
-        return datetime;
+        return dateTime;
     }
 
     public void setDate(Date date) {
         Utils.dateFormat.format(date);
-        this.datetime = date;
+        this.dateTime = date;
     }
 
     public String getDescr() {

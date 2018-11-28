@@ -7,7 +7,6 @@ public class ErrorResponse{
 
 private int errorCode;
 private String message;
-private ArrayList<String> list;
 
 public int getErrorCode()
 {
@@ -24,11 +23,5 @@ public int getErrorCode()
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-
-    public void setMessage(ArrayList<String> messages)
-    {
-        this.list = messages;
     }
 }

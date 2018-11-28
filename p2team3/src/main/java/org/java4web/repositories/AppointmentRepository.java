@@ -13,7 +13,18 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
 
-    @Query(value = "select * from Specialty inner join Doctor on  Specialty.id = Doctor.specialty_id inner join Appointment on Appointment.doctor_id = Doctor.id where Specialty.name = ?1", nativeQuery = true)
-    public List<Appointment>findBySpecialty(String specialtyName);
+    @Query(value = "select * from Appointment " +
+            "inner join Doctor on Appointment.doctor_id = Doctor.id " +
+            "inner join Specialty on Doctor.specialty_id = Specialty.id " +
+            "where Specialty.id = ?1", nativeQuery = true)
+    public List<Appointment> findBySpecialtyId(Long specialtyId);
+
+    public List<Appointment>findByDateTimeBetween(Date dateFrom, Date dateTo);
+
+    @Query(value = "select * from Appointment " +
+            "inner join Doctor on Appointment.doctor_id = Doctor.id " +
+            "inner join Specialty on Doctor.specialty_id = Specialty.id " +
+            "where (Specialty.id = ?1) and (Appointment.date_time between ?2 and ?3)", nativeQuery = true)
+    public List<Appointment> findBySpecialtyIdAndDateTimeBetween(Long specialty, Date dateFrom, Date dateTo);
 }
 
