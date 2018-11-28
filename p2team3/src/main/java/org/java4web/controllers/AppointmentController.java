@@ -7,7 +7,6 @@ import org.java4web.model.Specialty;
 import org.java4web.repositories.AppointmentRepository;
 import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
-import org.java4web.utils.SpecialtyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
