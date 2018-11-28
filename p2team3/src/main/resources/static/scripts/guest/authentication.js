@@ -61,11 +61,10 @@ function register(usernameElement, passwordElement, firstnameElement, lastnameEl
         type: 'POST',
         success: function(resultData){
             alert("Η Εγγραφή σου ολοκληρώθηκε!");
-            location.replace("loginpage/login.html");
+            location.replace("../../index.html");
         },
         error: function(resultData){
             alert("Ουπς! Προσπάθησε ξανά με τα σωστά στοιχεία!")
-            location.reload();
             }
 
     }
