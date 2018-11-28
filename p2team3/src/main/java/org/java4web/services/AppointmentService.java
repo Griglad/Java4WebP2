@@ -11,6 +11,7 @@ import org.java4web.repositories.PatientRepository;
 import org.java4web.security.UserRole;
 import org.java4web.utils.AppointmentDto;
 import org.java4web.utils.PatientDto;
+import org.java4web.utils.Utils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.Optional;
 
 @Service
@@ -39,7 +41,6 @@ public class AppointmentService {
 
 
     }
-
 
     public Appointment newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
         Appointment entityAppointment = new Appointment();
@@ -68,24 +69,14 @@ public class AppointmentService {
         Doctor doctor = doctorOptional.get();
         entityAppointment.setDoctor(doctor);
         //entityAppointment.setPatient(patient);
-        entityAppointment.setDate(appointmentDto.getDate());
-        entityAppointment.setTime(appointmentDto.getTime());
+
+
+        entityAppointment.setDate(Utils.dateFormatParse(appointmentDto.getDate()));
         entityAppointment.setDescr(appointmentDto.getDescr());
         entityAppointment.setNotes(appointmentDto.getNotes());
 
         return appointmentRepository.save(entityAppointment);
-
     }
-
-
-//        modelMapper.addMappings(new PropertyMap<AppointmentDto, Appointment>() {
-//            protected void configure() {
-//
-//
-//            }
-//        });
-
-
 }
 
 
