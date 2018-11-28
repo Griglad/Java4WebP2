@@ -1,47 +1,34 @@
 package org.java4web.utils;
 
 import org.java4web.model.Appointment;
-import org.java4web.model.Doctor;
-import org.java4web.model.Patient;
-
 import javax.validation.constraints.NotNull;
 
 
-public class AppointmentDto extends Appointment {
+public class AppointmentDto {
 
     private Long doctorId;
-
-
+    private String date;
+    private String descr;
+    private String notes;
 
     @NotNull
     public String getDate() {
-        return super.getDate();
-    }
-
-    @NotNull
-    public String getTime() {
-        return super.getTime();
+        return date;
     }
 
     @NotNull
     public String getDescr() {
-        return super.getDescr();
+        return descr;
     }
 
     @NotNull
     public String getNotes() {
-        return super.getNotes();
+        return notes;
     }
 
     public Long getDoctorId() {
         return doctorId;
     }
-
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
-    }
-
-
 }
 
 

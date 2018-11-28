@@ -1,11 +1,11 @@
 package org.java4web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.stereotype.Component;
+import org.java4web.utils.Utils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,23 +20,18 @@ public class Appointment {
     @JoinColumn(name = "patient_id", nullable = false)
     protected Patient patient;
 
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id", nullable = false)
     protected Doctor doctor;
 
-
-    @Column(nullable = false)
-    protected String date;
-
-
-    @Column(nullable = false)
-    protected String time;
-
+    @Column(nullable = false, columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date datetime;
 
     @Column(nullable = false)
     protected String descr;
-
 
     @Column(columnDefinition = "TEXT", nullable = false)
     protected String notes;
@@ -45,10 +40,10 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Doctor doctor, String date, String time, String descr, String notes) {
+    public Appointment(Doctor doctor, @NotNull Date datetime, @NotNull String descr, @NotNull String notes) {
         this.doctor = doctor;
-        this.date = date;
-        this.time = time;
+        Utils.dateFormat.format(datetime);
+        this.datetime = datetime;
         this.descr = descr;
         this.notes = notes;
     }
@@ -77,20 +72,13 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public String getDate() {
-        return date;
+    public Date getDate() {
+        return datetime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDate(Date date) {
+        Utils.dateFormat.format(date);
+        this.datetime = date;
     }
 
     public String getDescr() {
@@ -107,6 +95,19 @@ public class Appointment {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", patient=" + patient +
+                ", doctor=" + doctor +
+                //TODO: Import date string
+                //", date='" + date + '\'' +
+                ", descr='" + descr + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }
 

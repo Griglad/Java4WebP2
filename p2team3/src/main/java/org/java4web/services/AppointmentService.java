@@ -7,10 +7,14 @@ import org.java4web.repositories.DoctorRepository;
 import org.java4web.repositories.PatientRepository;
 import org.java4web.repositories.SpecialtyRepository;
 import org.java4web.utils.AppointmentDto;
+
+import org.java4web.utils.Utils;
+
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.security.Principal;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +35,6 @@ public class AppointmentService {
         this.specialtyRepository = specialtyRepository;
 
     }
-
 
     public Appointment newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
         Appointment entityAppointment = new Appointment();
@@ -60,16 +63,14 @@ public class AppointmentService {
         Doctor doctor = doctorOptional.get();
         entityAppointment.setDoctor(doctor);
         //entityAppointment.setPatient(patient);
-        entityAppointment.setDate(appointmentDto.getDate());
-        entityAppointment.setTime(appointmentDto.getTime());
+
+
+        entityAppointment.setDate(Utils.dateFormatParse(appointmentDto.getDate()));
         entityAppointment.setDescr(appointmentDto.getDescr());
         entityAppointment.setNotes(appointmentDto.getNotes());
 
         return appointmentRepository.save(entityAppointment);
-
     }
-
-
 
     public List<Appointment> getAppointments(Principal principal, String specialtyName)
     {
@@ -80,18 +81,12 @@ public class AppointmentService {
                return appointmentRepository.findBySpecialty(specialtyForAppointment.getName());
     }
 
-
-
-
-
-
 //        modelMapper.addMappings(new PropertyMap<AppointmentDto, Appointment>() {
 //            protected void configure() {
 //
 //
 //            }
 //        });
-
 
 }
 

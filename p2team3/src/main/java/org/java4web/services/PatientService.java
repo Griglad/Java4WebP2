@@ -32,7 +32,6 @@ public class PatientService {
 
         if (patientRepository.findByEmail(patientDto.getEmail()) != null) {
             throw new CreateRecordException(ExceptionMessages.EMAIL_ALREADY_EXISTS.getErrorMessage());
-
         }
         if (patientRepository.findByAmka(patientDto.getAmka()) != null) {
             throw new CreateRecordException(ExceptionMessages.AMKA_ALREADY_EXISTS.getErrorMessage());
