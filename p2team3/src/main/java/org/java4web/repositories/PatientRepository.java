@@ -11,9 +11,6 @@ public interface PatientRepository extends CrudRepository<Patient, Long> {
 
     public Patient findByAmka(String amka);
 
-  public Patient findByUsername(String username);
 
-
-
-
+    Patient findByUsername(String username);
 }

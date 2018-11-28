@@ -1,45 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Login page </title>
+    <meta charset="UTF-8">
+    <title>Σύνδεση Χρήστη</title>
+    <!--css bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- css local-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Styles -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/guest.css">
+    <!--javascript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="scripts/config/main.js"></script>
+    <script src="scripts/security/guest-auth.js"></script>
+    <script src="scripts/guest/authentication.js"></script>
 
-  <!-- Javascript files -->
-  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-  <script src="scripts/config/main.js"></script>
-  <script src="scripts/security/guest-auth.js"></script>
-  <script src="scripts/guest/authentication.js"></script>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-image: url("./pages/guest/bg.png");
+        }
+        #loginForm { 
+            margin-top: 100px;
+            text-align: center;           
+            
+        }
+        #windowHeader{text-align: center}
+
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+        #dropdownSpecialty{
+            height: 40px;
+            padding-top: 0;
+            padding-bottom: 0;
+
+        }
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.icon{
+    padding-top: 14px;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+    </style>
+
+
 </head>
 
 <body>
 
-  <!-- Page name -->
-  <header class="center">
-    <h2>Login page</h2>
-  </header>
 
-  <!-- Login form -->
-  <section class="center">
-    <form>
-      <div class="field">
-        <label for="username">Username</label>
-        <input type="text" name="username" value="" placeholder="Type your username">
-      </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input type="password" name="password" value="" placeholder="Type your password">
-      </div>
-      <input type="button" value="Login" onclick="login(username,password, password);">
-      <a href="registration.html">Register</a>
-    </form>
-  </section>
+    <div class="container-fluid col-4 ">
+        <div class="card" id="loginForm">
+            <h5 id="windowHeader" class="card-header h5 ">Σύνδεση Χρήστη</h5>
+            <div class="card-body" id="cardBody">
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSpecialty" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Ασθενής
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+
+
+
+                    <div class="input-container mt-4">
+                        <i class="fa fa-user icon"></i>
+                        <input class="input-field" type="text" placeholder="Username" id="inputUsername" name="username">
+                    </div>
+
+                    
+                    
+
+                    <div class="input-container">
+                        <i class="fa fa-key icon"></i>
+                        <input class="input-field" type="password" placeholder="Password" id="InputPassword" name="password">
+                    </div>
+
+                    <input type="button" value="Login" class="btn" onclick="login(inputUsername,InputPassword, InputPassword);">
+                   
+                    <a href="pages/guest/registration.html" >Register</a>
+                    
+
+                    <!--This is a hidden message to be show only in case of failed login atempt -->
+                    <div hidden class="alert alert-danger mt-4" role="alert">
+                        Wrong Username or Password
+                      </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 </body>
 

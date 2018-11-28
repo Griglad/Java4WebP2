@@ -1,6 +1,5 @@
 package org.java4web.repositories;
 
-
 import org.java4web.model.Specialty;
 import org.springframework.data.jpa.repository.JpaRepository;
 

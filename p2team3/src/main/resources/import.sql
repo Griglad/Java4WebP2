@@ -32,3 +32,7 @@ insert into doctor values(4,'Stamatis','Petrou','2310621431','stampe',4);
 
 #5Doc
 insert into doctor values(5,'Xaris','Spirou','231071343','xarspi',5);
+
+
+
+insert into patient values(1,'12345678','grigorioslad@gmail.com','grigoris','ladas','6907922610','123456789','Greg');

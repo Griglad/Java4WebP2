@@ -20,28 +20,25 @@ public class Appointment {
     protected Patient patient;
 
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id", nullable = false)
     protected Doctor doctor;
 
-    @NotNull
+
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     protected Date date;
 
-    @NotNull
     @Column(nullable = false)
     protected String descr;
 
-    @NotNull
     @Column(columnDefinition = "TEXT", nullable = false)
     protected String notes;
 
 
     public Appointment() {
     }
-
-
 
     public Appointment(Doctor doctor, @NotNull Date date, @NotNull String descr, @NotNull String notes) {
         this.doctor = doctor;
@@ -59,7 +56,6 @@ public class Appointment {
         this.id = id;
     }
 
-
     public Patient getPatient() {
         return patient;
     }
@@ -67,7 +63,6 @@ public class Appointment {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
 
     public Doctor getDoctor() {
         return doctor;
@@ -90,8 +85,8 @@ public class Appointment {
         return descr;
     }
 
-    public void setDescr(String desc) {
-        this.descr = desc;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public String getNotes() {

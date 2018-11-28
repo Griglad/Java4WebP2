@@ -4,51 +4,52 @@ package org.java4web.controllers;
 import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.model.Appointment;
 import org.java4web.repositories.AppointmentRepository;
+import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 public class AppointmentController {
 
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentService appointmentService;
+
+
 
 
     @Autowired
-    private AppointmentDto appointmentDto;
-
-    @Autowired
-    public AppointmentController(AppointmentRepository appointmentRepository) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentController(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
 
     }
 
 
     @PostMapping("/appointments")
-    public Appointment newAppointment(@RequestBody AppointmentDto appointmentDto){
+    public Appointment newAppointment(@RequestBody @Valid AppointmentDto appointmentDto, Principal principal){
 
 
-
-        return null;
+        return appointmentService.newAppointment(appointmentDto,principal);
 
     }
 
-    @GetMapping("/appointments/{id}")
-    public Appointment getAppointmentById(@PathVariable Long id) {
-
-            return  appointmentRepository.findById(id)
-                .orElseThrow(() -> new AppointmentNotFoundException(id));
-    }
-
-    @GetMapping("/appointments")
-    public List<Appointment>  getAppointmentsFromTo(@RequestParam String from,@RequestParam String to){
-        long id=1;
-
-        return appointmentRepository.fin(id);
-    }
+//    @GetMapping("/appointments/{id}")
+//    public Appointment getAppointmentById(@PathVariable Long id) {
+//
+//            return  appointment.findById(id)
+//                .orElseThrow(() -> new AppointmentNotFoundException(id));
+//    }
+//
+//    @GetMapping("/appointments")
+//    public List<Appointment>  getAppointmentsFromTo(@RequestParam String from,@RequestParam String to){
+//        long id=1;
+//
+//        return appointmentRepository.fin(id);
+//    }
 
 
 /*
