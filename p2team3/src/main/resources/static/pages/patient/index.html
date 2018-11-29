@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="../../scripts/patient/homepage.js"></script>
+        <script src="../../scripts/config/main.js"></script>
         <style>
             p {
-            color : red;
+            color : rgb(51, 18, 18);
             text-align : center;
             }
         </style>
     </head>
     <body>
         <p> Hello Patient! </p>
-        <p> These paragraphs are styled with CSS. </p>
+        
+        <div>
+            <a href="./newDPAppointment.html">Νέο Ραντεβού</a>
+        </div>
+
+        <div>
+            <input type="button" onclick="logout()" value="Αποσύνδεση">
+        </div>
     </body>
 </html>
