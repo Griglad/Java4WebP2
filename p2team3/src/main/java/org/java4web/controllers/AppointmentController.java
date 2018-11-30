@@ -20,11 +20,18 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/appointments")
-    public MappingJacksonValue getAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
-                                               @RequestParam(value = "from", required = false) String dateFrom,
-                                               @RequestParam(value = "to", required = false) String dateTo) {
-        return appointmentService.getAppointments(specialtyName, dateFrom, dateTo);
+    @GetMapping("patients/appointments")
+    public MappingJacksonValue getPatientAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
+                                              @RequestParam(value = "from", required = false) String dateFrom,
+                                              @RequestParam(value = "to", required = false) String dateTo) {
+        return appointmentService.getPatientAppointments(specialtyName, dateFrom, dateTo);
+    }
+
+    @GetMapping("doctors/appointments")
+    public MappingJacksonValue getDoctorAppointments(@RequestParam(value = "descr", required = false) String description,
+                                                      @RequestParam(value = "from", required = false) String dateFrom,
+                                                      @RequestParam(value = "to", required = false) String dateTo) {
+        return appointmentService.getDoctorAppointments(description, dateFrom, dateTo);
     }
 
     @PostMapping("/appointments")

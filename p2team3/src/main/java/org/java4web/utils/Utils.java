@@ -11,6 +11,10 @@ public class Utils {
     public static final DateFormat dateFormat = new SimpleDateFormat(dateTimeFormat);
 
     public static Date dateFormatParse(String dateText) {
+        if(dateText==null || dateText.isEmpty()){
+            return null;
+        }
+
         try {
             return dateFormat.parse(dateText);
         } catch (ParseException e) {
