@@ -11,17 +11,17 @@ public class AppointmentDto {
     private String descr;
     private String notes;
 
-    @NotNull
+    @NotNull(message = "{date.not.null}")
     public String getDate() {
         return date;
     }
 
-    @NotNull
+
     public String getDescr() {
         return descr;
     }
 
-    @NotNull
+
     public String getNotes() {
         return notes;
     }

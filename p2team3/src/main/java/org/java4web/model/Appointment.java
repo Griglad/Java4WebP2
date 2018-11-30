@@ -5,7 +5,9 @@ import org.java4web.utils.Utils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Appointment {
@@ -25,24 +27,23 @@ public class Appointment {
     @JoinColumn(name = "doctor_id", nullable = false)
     protected Doctor doctor;
 
-    @Column(nullable = false, columnDefinition="DATETIME")
+    @Column(nullable = false, columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateTime;
 
-    @Column(nullable = false)
+    @Column
     protected String descr;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT")
     protected String notes;
 
 
     public Appointment() {
     }
 
-    public Appointment(Doctor doctor, @NotNull Date datetime, @NotNull String descr, @NotNull String notes) {
+    public Appointment(Doctor doctor, Date dateTime, String descr, String notes) {
         this.doctor = doctor;
-        Utils.dateFormat.format(datetime);
-        this.dateTime = datetime;
+        this.dateTime = dateTime;
         this.descr = descr;
         this.notes = notes;
     }

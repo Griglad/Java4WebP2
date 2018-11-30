@@ -1,6 +1,7 @@
 package org.java4web.controllers;
 
 
+import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.model.Appointment;
 import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
@@ -42,37 +43,24 @@ public class AppointmentController {
 
     }
 
-//    @GetMapping("/appointments/{id}")
-//    public Appointment getAppointmentById(@PathVariable Long id) {
-//
-//            return  appointment.findById(id)
-//                .orElseThrow(() -> new AppointmentNotFoundException(id));
-//    }
-//
-//    @GetMapping("/appointments")
-//    public List<Appointment>  getAppointmentsFromTo(@RequestParam String from,@RequestParam String to){
-//        long id=1;
-//
-//        return appointmentRepository.fin(id);
-//    }
+    @GetMapping("/appointments/{id}")
+    public Appointment getAppointmentById(@PathVariable Long id) {
 
-
-/*
-    @PutMapping("/appointments/{id}")
-    public Appointment updateAppointment(@PathVariable Long id,@RequestBody Appointment updatedAppointment){
-
+        return appointmentService.getAppointmentById(id);
 
     }
+
+
+    @PutMapping("/appointments/{id}")
+    public Appointment updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentDto updatedAppointmentDto, Principal principal) {
+        return appointmentService.updateAppointment(id, updatedAppointmentDto, principal);
+    }
+
 
     @DeleteMapping("appointments/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteAppointment(@PathVariable Long id) {
-        getAppointment(id);
-        appointmentRepository.deleteById(id);
+    public void deleteAppointmentById(@PathVariable Long id) {
+        appointmentService.deleteAppointmentById(id);
     }
-*/
-
-
 
 
 }

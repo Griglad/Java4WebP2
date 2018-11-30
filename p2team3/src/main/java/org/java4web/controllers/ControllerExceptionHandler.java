@@ -27,7 +27,7 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<ErrorResponse>(error,HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class,NullPointerException.class})
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
         return new ResponseEntity<Object>(ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);

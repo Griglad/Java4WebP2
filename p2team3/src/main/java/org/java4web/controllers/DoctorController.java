@@ -1,7 +1,9 @@
 package org.java4web.controllers;
 
+import org.java4web.model.Appointment;
 import org.java4web.model.Doctor;
 
+import org.java4web.model.Patient;
 import org.java4web.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,8 +35,18 @@ public class DoctorController {
     }
 
     @GetMapping("/doctors/spec/{specialty}")
-    public List<Doctor> getDoctors(@PathVariable String specialty){
+    public List<Doctor> getDoctors(@PathVariable String specialty) {
         return doctorService.getDoctorsBySpecialty(specialty);
     }
 
+    @GetMapping("doctors/{id}")
+    public Appointment getDoctorAppointmet(@PathVariable Long id) {
+        return doctorService.getDoctorAppointment(id);
+
+    }
+
+    @GetMapping("/doctors/patient/{id}")
+    public Patient getPatient(@PathVariable Long id) {
+        return doctorService.getPatient(id);
+    }
 }

@@ -26,5 +26,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "inner join Specialty on Doctor.specialty_id = Specialty.id " +
             "where (Specialty.id = ?1) and (Appointment.date_time between ?2 and ?3)", nativeQuery = true)
     public List<Appointment> findBySpecialtyIdAndDateTimeBetween(Long specialty, Date dateFrom, Date dateTo);
+
+
+
+
+//   @Query(value = "UPDATE Appointments SET descr=CONCAT(descr, '?1') WHERE id=?2",nativeQuery = true)
+////    public Appointment getAppointmentByUpdatedDescr(Appointment appointment);
+
+
 }
 
