@@ -1,14 +1,12 @@
 package org.java4web.model;
 
-
-import org.java4web.security.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.springframework.http.converter.json.MappingJacksonValue;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 public class Doctor implements CustomUser{
@@ -18,26 +16,18 @@ public class Doctor implements CustomUser{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(nullable = false)
     protected String firstName;
 
-
     @Column(nullable = false)
     protected String lastName;
-
-
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "specialty_id")
     protected Specialty specialty;
 
-
-
     @Column(nullable = false, unique = true)
     protected String username;
-
 
     @Column(nullable = false)
     protected String password;
@@ -51,6 +41,10 @@ public class Doctor implements CustomUser{
         this.specialty = specialty;
         this.username = username;
         this.password = password;
+    }
+
+    public void setFiltersForGetAppointments(MappingJacksonValue wrapper){
+        wrapper.setFilters(new SimpleFilterProvider().addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAllExcept("doctor")));
     }
 
     public Long getId() {
@@ -85,11 +79,12 @@ public class Doctor implements CustomUser{
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

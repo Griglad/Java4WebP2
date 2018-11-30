@@ -1,32 +1,19 @@
 package org.java4web.model;
 
-
-import org.java4web.WebAppConfig;
-import org.java4web.security.UserRole;
-import org.java4web.utils.PatientDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.springframework.http.converter.json.MappingJacksonValue;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import javax.validation.constraints.*;
-
-import javax.validation.constraints.*;
-import java.io.Serializable;
 
 @Entity
 public class Patient implements CustomUser{
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-
 
     @Column(nullable = false)
     protected String firstName;
@@ -55,6 +42,7 @@ public class Patient implements CustomUser{
     @Column(nullable = false)
     private String password;
 
+
     public Patient() {
     }
 
@@ -66,6 +54,10 @@ public class Patient implements CustomUser{
         this.mobilePhone = mobilePhone;
         this.username = username;
         this.password = password;
+    }
+
+    public void setFiltersForGetAppointments(MappingJacksonValue wrapper){
+        wrapper.setFilters(new SimpleFilterProvider().addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAllExcept("patient")));
     }
 
     public Long getId() {
@@ -124,14 +116,13 @@ public class Patient implements CustomUser{
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
+    @JsonProperty
+    public void setPassword(String password) { this.password = password; }
 
     @Override
     public String toString() {
@@ -139,7 +130,5 @@ public class Patient implements CustomUser{
                 "Patient[id=%d, first_name='%s', last_name='%s', amka=%d, email='%s', mobile_phone=%d]",
                 id, firstName, lastName, amka, email, mobilePhone);
     }
-
-
 }
 

@@ -6,15 +6,13 @@ import org.java4web.repositories.AppointmentRepository;
 import org.java4web.repositories.DoctorRepository;
 import org.java4web.repositories.PatientRepository;
 import org.java4web.repositories.SpecialtyRepository;
+import org.java4web.security.CustomUserDetails;
 import org.java4web.utils.AppointmentDto;
-
 import org.java4web.utils.Utils;
-
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
-
 import javax.validation.Valid;
 import java.security.Principal;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,43 +35,27 @@ public class AppointmentService {
 
     }
 
-    public Appointment newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
+    public MappingJacksonValue newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
         Appointment entityAppointment = new Appointment();
 
 
         Patient patient = patientRepository.findByUsername(principal.getName());
         entityAppointment.setPatient(patient);
-        // Doctor doctor = doctorRepository.findById(appointmentDto.getDoctorId()).get();
-//        ModelMapper modelMapper = new ModelMapper();
-//         modelMapper.addMappings(
-//                 new PropertyMap<Appointment, AppointmentDto>() {
-//
-//                     protected void configure()
-//                     {
-//                         map().setDoctor(doctor);
-//
-//                     }
-//                 }
-//         );
         Optional<Doctor> doctorOptional = doctorRepository.findById(appointmentDto.getDoctorId());
 
         if (doctorOptional == null) {
             throw new DoctorNotFoundException(appointmentDto.getDoctorId().toString());
         }
-        //modelMapper.map(appointmentDto, entityAppointment);
         Doctor doctor = doctorOptional.get();
         entityAppointment.setDoctor(doctor);
-        //entityAppointment.setPatient(patient);
-
-
-        entityAppointment.setDate(Utils.dateFormatParse(appointmentDto.getDate()));
+        entityAppointment.setDateTime(Utils.dateFormatParse(appointmentDto.getDate()));
         entityAppointment.setDescr(appointmentDto.getDescr());
         entityAppointment.setNotes(appointmentDto.getNotes());
 
-        return appointmentRepository.save(entityAppointment);
+        return createMJVforGetAppointment(appointmentRepository.save(entityAppointment), principal);
     }
 
-    public List<Appointment> getAppointments(Principal principal, String specialtyIdStr, String dateFrom, String dateTo) {
+    public MappingJacksonValue getAppointments(Principal principal, String specialtyIdStr, String dateFrom, String dateTo) {
 
         if (specialtyIdStr != null) {
             Long specialtyId = Long.valueOf(specialtyIdStr);
@@ -81,33 +63,41 @@ public class AppointmentService {
             if (dateFrom == null && dateTo == null) {
                 //TODO: Catch Long parsing.
                 if (specialty.isPresent()) {
-                    return appointmentRepository.findBySpecialtyId(specialty.get().getId());
+                    return createMJVforGetAppointments((appointmentRepository.findBySpecialtyId(specialty.get().getId())),principal);
                 }
+                return null;
             } else if (dateFrom != null && dateTo != null) {
                 Date fromDate = Utils.dateFormatParse(dateFrom);
                 Date toDate = Utils.dateFormatParse(dateTo);
-                return appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId,fromDate, toDate);
+                return createMJVforGetAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId,fromDate, toDate)), principal);
             } else {
                 //TODO:
+                return null;
             }
         } else if (dateFrom != null && dateTo != null) {
             Date fromDate = Utils.dateFormatParse(dateFrom);
             Date toDate = Utils.dateFormatParse(dateTo);
-            return appointmentRepository.findByDateTimeBetween(fromDate, toDate);
+            return createMJVforGetAppointments(appointmentRepository.findByDateTimeBetween(fromDate, toDate), principal);
+        }else{
+            return null;
         }
-
-        return null;
-
-
     }
 
-//        modelMapper.addMappings(new PropertyMap<AppointmentDto, Appointment>() {
-//            protected void configure() {
-//
-//
-//            }
-//        });
+    MappingJacksonValue createMJVforGetAppointments(List<Appointment> appointments, Principal principal){
+        return applyMJVAppointmentsFilters(new MappingJacksonValue(appointments),principal);
+    }
 
+    MappingJacksonValue createMJVforGetAppointment(Appointment appointment, Principal principal){
+        return applyMJVAppointmentsFilters(new MappingJacksonValue(appointment),principal);
+    }
+
+    MappingJacksonValue applyMJVAppointmentsFilters(MappingJacksonValue wrapper, Principal principal){
+        CustomUserDetails userDetails = (CustomUserDetails) principal;
+        if(wrapper!=null){
+            userDetails.getUser().setFiltersForGetAppointments(wrapper);
+        }
+        return wrapper;
+    }
 }
 
 

@@ -1,12 +1,14 @@
 package org.java4web.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.java4web.utils.Utils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@JsonFilter("AppointmentFilter")
 @Entity
 public class Appointment {
 
@@ -14,18 +16,17 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", nullable = false)
     protected Patient patient;
 
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id", nullable = false)
     protected Doctor doctor;
 
     @Column(nullable = false, columnDefinition="DATETIME")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Utils.dateTimeFormat)
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateTime;
 
@@ -71,13 +72,13 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public Date getDate() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDate(Date date) {
-        Utils.dateFormat.format(date);
-        this.dateTime = date;
+    public void setDateTime(Date dateTime) {
+        Utils.dateFormat.format(dateTime);
+        this.dateTime = dateTime;
     }
 
     public String getDescr() {
@@ -102,8 +103,7 @@ public class Appointment {
                 "id=" + id +
                 ", patient=" + patient +
                 ", doctor=" + doctor +
-                //TODO: Import date string
-                //", date='" + date + '\'' +
+                ", date='" + Utils.dateFormat.format(dateTime) + '\'' +
                 ", descr='" + descr + '\'' +
                 ", notes='" + notes + '\'' +
                 '}';
