@@ -60,11 +60,13 @@ function register(usernameElement, passwordElement, firstnameElement, lastnameEl
         contentType: 'application/json',
         type: 'POST',
         success: function(resultData){
-            alert("Η Εγγραφή σου ολοκληρώθηκε!");
+            alert("Η Εγγραφή ολοκληρώθηκε!");
             location.replace("../../index.html");
         },
         error: function(resultData){
-            alert("Ουπς! Προσπάθησε ξανά με τα σωστά στοιχεία!")
+        var data=resultData.responseText;
+        var jsonResponse = JSON.parse(data);
+        alert(jsonResponse["message"]);
             }
 
     }
