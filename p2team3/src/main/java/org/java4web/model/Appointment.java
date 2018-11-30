@@ -3,9 +3,7 @@ package org.java4web.model;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.java4web.utils.Utils;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @JsonFilter("AppointmentFilter")
@@ -30,20 +28,18 @@ public class Appointment {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateTime;
 
-    @Column(nullable = false)
+    @Column
     protected String descr;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT")
     protected String notes;
-
 
     public Appointment() {
     }
 
-    public Appointment(Doctor doctor, @NotNull Date datetime, @NotNull String descr, @NotNull String notes) {
+    public Appointment(Doctor doctor, Date dateTime, String descr, String notes) {
         this.doctor = doctor;
-        Utils.dateFormat.format(datetime);
-        this.dateTime = datetime;
+        this.dateTime = dateTime;
         this.descr = descr;
         this.notes = notes;
     }

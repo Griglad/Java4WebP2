@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utils {
+
     public static final String dateTimeFormat = "yyyy/MM/dd HH:mm:ss";
     public static final DateFormat dateFormat = new SimpleDateFormat(dateTimeFormat);
 
@@ -16,5 +17,9 @@ public class Utils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Date getToday(){
+        return new Date();
     }
 }
