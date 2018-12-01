@@ -192,7 +192,8 @@ body {
                     <div class="col-sm-4">
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                <input type="text" id="date1" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="Από" />
+                                <input type="text" id="date1" class="form-control datetimepicker-input" data-target="#datetimepicker1"
+                                    placeholder="Από" />
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -201,14 +202,15 @@ body {
                     </div>
                     <script type="text/javascript">
                         $(function () {
-                            $('#datetimepicker1').datetimepicker();
+                            $('#datetimepicker1').datetimepicker({useCurrent: true});
                         });
                     </script>
 
                     <div class="col-sm-4">
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                                <input type="text" id="date2" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="Έως"/>
+                                <input type="text" id="date2" class="form-control datetimepicker-input" data-target="#datetimepicker2"
+                                    placeholder="Έως" />
                                 <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -217,7 +219,7 @@ body {
                     </div>
                     <script type="text/javascript">
                         $(function () {
-                            $('#datetimepicker2').datetimepicker();
+                            $('#datetimepicker2').datetimepicker({useCurrent: true});
                         });
                     </script>
 
@@ -228,7 +230,7 @@ body {
 
                     <div class="container-fluid mt-4">
                         <div class="form-row justify-content-end">
-                            <a href="./newAppointment.html"  class="btn btn-primary col-3 offset-md-4 mr-4">Νέο
+                            <a href="./newAppointment.html" class="btn btn-primary col-3 offset-md-4 mr-4">Νέο
                                 ραντεβού</a>
                             <button type="button" id="searchButton" class="btn btn-primary mr-1">Αναζήτηση</button>
                         </div>
@@ -249,7 +251,7 @@ body {
         <div class="container-fluid" id="canDataTable">
 
 
-            <table  id="table_id">
+            <table id="table_id">
                 <thead>
                     <tr>
                         <th>Ημερομηνία/Ώρα</th>
