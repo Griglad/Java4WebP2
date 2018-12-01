@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <title>Ενημέρωση Ραντεβού</title>
     <!--css bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
 
 
@@ -159,17 +162,40 @@ body {
             <div class="card-body" id="cardBody">
 
                 <div class="row">
-                    <label for="specialty" class=" col-form-label">Ειδικότητα</label>
+                    <label for="specialty" class=" col-form-label">Ειδικότητα:</label>
                 </div>
                 <div class="row ">
                     <input type="text" readonly class="form-control-plaintext" id="specialty" value=" ">
                 </div>
                 <div class="row ">
-                    <label for="doctor" class=" col-form-label">Γιατρός</label>
+                    <label for="doctor" class=" col-form-label">Γιατρός:</label>
                 </div>
                 <div class="row ">
                     <input type="text" readonly class="form-control-plaintext" id="doctor" value=" ">
                 </div>
+
+                <div class="container">
+
+                    <div class="row">
+                        <label class=" col-form-label col-6">Ημέρα και ώρα ραντεβού:</label>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                            });
+                        </script>
+                    </div>
+                </div>
+
                 <div class="row mt-3">
                     <label for="descriptionTextArea">Περιγραφή συμπτομάτων</label>
                     <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
@@ -182,26 +208,26 @@ body {
 
                 <div class="container-fluid mt-4">
                     <div class="form-row justify-content-end">
-                        <button type="submit"  id="buttonBack" class="btn btn-primary mr-4">Πίσω</button>
-                        <button type="submit"  id="buttonDelete" class="btn btn-primary offset-md-4 mr-4">Διαγραφή</button>
-                        <button type="submit"  id="buttonUpdate" class="btn btn-primary">Ενημέρωση</button>
+                        <button type="submit" id="buttonBack" class="btn btn-primary mr-4">Πίσω</button>
+                        <button type="submit" id="buttonDelete" class="btn btn-primary offset-md-4 mr-4">Διαγραφή</button>
+                        <button type="submit" id="buttonUpdate" class="btn btn-primary">Ενημέρωση</button>
                     </div>
                 </div>
 
-                
+
 
 
             </div>
-            
+
 
 
         </div>
-        
+
 
     </div>
 
 
-   
+
 
 
 </body>
