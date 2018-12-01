@@ -44,7 +44,8 @@ public class Doctor implements CustomUser{
     }
 
     public void setFiltersForGetAppointments(MappingJacksonValue wrapper){
-        wrapper.setFilters(new SimpleFilterProvider().addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAllExcept("doctor")));
+        wrapper.setFilters(new SimpleFilterProvider()
+                .addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAllExcept("doctor")));
     }
 
     public Long getId() {

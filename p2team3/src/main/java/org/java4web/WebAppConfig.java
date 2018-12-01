@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 public class WebAppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -61,8 +61,13 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/patients").permitAll()
-                .antMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
+                .antMatchers( "/login").anonymous()
+                .antMatchers(HttpMethod.POST, "/patients").anonymous()
+                .antMatchers("/patients/appointments").hasAnyRole(UserRole.ADMIN.name(), UserRole.PATIENT.name())
+                .antMatchers("/patients/**").authenticated()
+                .antMatchers("/doctors/appointments").hasAnyRole(UserRole.ADMIN.name(), UserRole.DOCTOR.name())
+                .antMatchers("/doctors/**").authenticated()
+                .antMatchers("/appointments/**").authenticated()
                 .and()
                 .formLogin()
                 .successHandler(mySuccessHandler)

@@ -6,11 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PatientRepository extends CrudRepository<Patient, Long> {
 
+    Patient findByEmail(String email);
 
-   public Patient findByEmail(String email);
-
-    public Patient findByAmka(String amka);
-
+    Patient findByAmka(String amka);
 
     Patient findByUsername(String username);
 }

@@ -2,12 +2,11 @@ package org.java4web.services;
 
 import org.java4web.exceptions.CreateRecordException;
 import org.java4web.exceptions.ExceptionMessages;
-import org.java4web.exceptions.PatientException;
+import org.java4web.exceptions.PatientNotFoundException;
 import org.java4web.model.Patient;
 import org.java4web.repositories.PatientRepository;
 import org.java4web.utils.PatientDto;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ public class PatientService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @Autowired
     public PatientService(PatientRepository patientRepository) {
@@ -48,16 +46,11 @@ public class PatientService {
 
         modelMapper.map(patientDto, entityPatient);
 
-
         return patientRepository.save(entityPatient);
-
-
     }
 
-    public Patient getPat(Long id) {
+    public Patient getPatient(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() -> new PatientException(id));
+                .orElseThrow(() -> new PatientNotFoundException(id));
     }
-
-
 }

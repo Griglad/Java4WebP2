@@ -1,94 +1,46 @@
 package org.java4web.services;
 
-import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.exceptions.DoctorNotFoundException;
-import org.java4web.exceptions.PatientNotFoundException;
-import org.java4web.exceptions.SpecialtyNotFoundException;
-import org.java4web.model.Appointment;
 import org.java4web.model.Doctor;
-import org.java4web.model.Patient;
-import org.java4web.model.Specialty;
-import org.java4web.repositories.AppointmentRepository;
 import org.java4web.repositories.DoctorRepository;
-import org.java4web.repositories.PatientRepository;
-import org.java4web.repositories.SpecialtyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DoctorService {
 
     private DoctorRepository doctorRepository;
-    private SpecialtyRepository specialtyRepository;
-    private AppointmentRepository appointmentRepository;
-    private PatientRepository patientRepository;
-
+    private SpecialtyService specialtyService;
 
     @Autowired
-    public DoctorService(DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository,AppointmentRepository appointmentRepository,PatientRepository patientRepository) {
+    public DoctorService(DoctorRepository doctorRepository, SpecialtyService specialtyService) {
         this.doctorRepository = doctorRepository;
-        this.specialtyRepository = specialtyRepository;
-        this.appointmentRepository = appointmentRepository;
-        this.patientRepository = patientRepository;
+        this.specialtyService = specialtyService;
     }
 
-    public List<Doctor> getAll() {
+    public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }
 
+    public Doctor getDoctor(Long id){
+        return doctorRepository.findById(id)
+            .orElseThrow(() -> new DoctorNotFoundException(id));
+    }
 
-    public Doctor getDoc(String username) {
-        if (doctorRepository.findByUsername(username) == null) {
+    public Doctor getDoctor(String username) {
+        Doctor doctor = doctorRepository.findByUsername(username);
+        if (doctor== null) {
             throw new DoctorNotFoundException(username);
         } else {
-            return doctorRepository.findByUsername(username);
+            return doctor;
         }
     }
 
-    public List<Doctor> getDoctorsBySpecialty(String specialtyName) {
-        Specialty specialty = specialtyRepository.findByName(specialtyName);
-        if (specialty == null) {
-            throw new SpecialtyNotFoundException(specialtyName);
-        }
-
-        List<Doctor> doctors = doctorRepository.findBySpecialty(specialty);
-        if (doctors.isEmpty()) {
-            throw new SpecialtyNotFoundException(specialtyName);
-        } else {
-            return doctors;
-        }
+    public List<Doctor> getDoctorsBySpecialty(Long id) {
+        return doctorRepository.findBySpecialty(specialtyService.getSpecialty(id));
     }
-
-
-
-    public Appointment getDoctorAppointment(@PathVariable Long id) {
-        return appointmentRepository.findById(id)
-                .orElseThrow(() -> new AppointmentNotFoundException(id));
-    }
-
-
-    public Patient getPatient(@PathVariable Long id)
-    {
-
-        Optional <Patient> patientOptional =  patientRepository.findById(id);
-        if(patientOptional.isPresent())
-        {
-            Patient patient = patientOptional.get();
-            return patient;
-        }
-        else{
-            throw new PatientNotFoundException(id);
-        }
-
-    }
-
-
-
 }
 
 
