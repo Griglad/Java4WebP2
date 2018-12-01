@@ -22,43 +22,67 @@ $(document).ready(function () {
     }).then(function (appointment) {
         $("#specialty").attr("value", appointment.doctor.specialty.name);
         $("#doctor").attr("value", appointment.doctor.firstName + " " + appointment.doctor.lastName);
-        $("#descriptionTextArea").attr("value", appointment.descr);
-        $("#notesTextArea").attr("value", appointment.notes);
+        $('#appointmentDate').attr("value", appointment.dateTime);
+        $("#descriptionTextArea").text(appointment.descr);
+        $("#notesTextArea").text( appointment.notes);
 
+        var appointDate = $("#appointmentDate").attr("value");
+    alert(appointDate);
+    alert($("#appointmentDate").attr("value"));
+
+    $("#appointmentDate").change(function () {
+        alert("Hey");
+         appointDate = formatDate($(this).attr("value"));
     });
 
-    var editedData = {};
-    $("#descriptionTextArea").change(function () {
-        editedData.descr = $(this).val();
-    });
-
-    $("#dateTextArea").change(function () {
-        editedData.date = formatDate($(this).val());
-    });
-
-    $("#notesTextArea").change(function () {
-        editedData.notes = $(this).val();
-    });
-
-    var editedDatajson = JSON.stringify(editedData);
     
 
 
     $("#buttonUpdate").click(function () {
-        alert(editedDatajson);
-        alert(editedData);
+        if($("#appointmentDate").val()!=appointDate){
+            alert("imerominia");
+            appointDate= formatDate($("#appointmentDate").val());
+        }
+        var editedData = {
+           "descr": $("#descriptionTextArea").val(),
+            "date" : appointDate,
+            "notes" : $("#notesTextArea").val()
+        };
+        var editedDatajson = JSON.stringify(editedData);
+       // alert(editedData);
+        //alert(editedDatajson);
         var testjson = {};
         if (JSON.stringify(editedData) === JSON.stringify(testjson)) {
             return;
         }
         $.ajax({
             url: ROOT_PATH + "/appointments/" + appId,
-            dataType : "json",
-            contentType: "application/json; charset=utf-8",
-            type: 'PUT',
-            data: editedDatajson
+            data: editedDatajson,
+            processData: false,
+            contentType: 'application/json',
+            type: 'PUT'  
         });
     });
+
+    });
+
+   // var editedData = {}; 
+    //$("#descriptionTextArea").change(function () {
+    ///    editedData.descr = $(this).val();
+    //    alert("Hey"+$(this).val());
+   //     alert(JSON.stringify(editedData));
+  //  });
+
+   // $("#appointmentDate").change(function () {
+       // editedData.date = formatDate($(this).val());
+   // });
+
+   // $("#notesTextArea").change(function () {
+   //     editedData.notes = $(this).val();
+   //     alert(JSON.stringify(editedData));
+   // });
+
+    
 
     $("#buttonDelete").click(function () {
         if (confirm("Το Ραντεβού θα διαγραφεί οριστικά.")) {

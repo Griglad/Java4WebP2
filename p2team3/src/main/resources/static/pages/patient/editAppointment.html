@@ -2,13 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Ενημέρωση Ραντεβού</title>
     <!--css bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <script src="../../scripts/patient/editAppointmentent.js"></script>
     <script src="../../scripts/config/main.js"></script>
 
@@ -16,7 +22,6 @@
 
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         #changeApForm { 
             margin-top: 100px;
@@ -179,7 +184,7 @@ body {
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="appointmentDate"/>
                                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -195,7 +200,7 @@ body {
                 </div>
 
                 <div class="row mt-3">
-                    <label for="descriptionTextArea">Περιγραφή συμπτομάτων</label>
+                    <label for="descriptionTextArea">Περιγραφή συμπτωμάτων</label>
                     <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
                 </div>
 
