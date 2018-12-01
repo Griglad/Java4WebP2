@@ -14,6 +14,7 @@ import org.java4web.repositories.SpecialtyRepository;
 import org.java4web.security.CustomUserDetails;
 import org.java4web.utils.AppointmentDto;
 import org.java4web.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
@@ -33,9 +33,10 @@ public class AppointmentService {
 
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
-    private  AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
     private final SpecialtyRepository specialtyRepository;
 
+    @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository, PatientRepository patientRepository,
                               DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository) {
         this.appointmentRepository = appointmentRepository;
@@ -105,17 +106,24 @@ public class AppointmentService {
         }
     }
 
-    public MappingJacksonValue getDoctorAppointments(String descr,String fromDate,String dateTo) {
+    public MappingJacksonValue getDoctorAppointments(String descr,String dateFrom,String dateTo) {
 
-        Date Datefrom = Utils.dateFormatParse(fromDate);
-        Date DateTo = Utils.dateFormatParse(dateTo);
+        Date fromDate = Utils.dateFormatParse(dateFrom);
+        Date toDate = Utils.dateFormatParse(dateTo);
 
-
-        return createMJVAppointments(appointmentRepository.findByDescription(descr), false);
-
-
-
-
+        if(descr!=null){
+            if(fromDate == null && toDate == null){
+                return createMJVAppointments(appointmentRepository.findByDescription(descr), false);
+            } else if(fromDate != null && toDate != null){
+                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeBetween(descr,fromDate,toDate), false);
+            } else if(fromDate != null){
+                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeAfter(descr,fromDate), false);
+            } else{
+                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeBefore(descr,toDate), false);
+            }
+        }else {
+            return getAppointments(fromDate, toDate);
+        }
     }
 
     public MappingJacksonValue getAppointments(Date fromDate, Date toDate){
