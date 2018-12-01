@@ -40,17 +40,23 @@ $(document).ready(function () {
         editedData.notes = $(this).val();
     });
 
+    var editedDatajson = JSON.stringify(editedData);
+    
 
 
     $("#buttonUpdate").click(function () {
+        alert(editedDatajson);
+        alert(editedData);
         var testjson = {};
         if (JSON.stringify(editedData) === JSON.stringify(testjson)) {
             return;
         }
         $.ajax({
             url: ROOT_PATH + "/appointments/" + appId,
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
             type: 'PUT',
-            data: editedData
+            data: editedDatajson
         });
     });
 
