@@ -15,23 +15,20 @@ import javax.validation.Valid;
 @Validated
 public class PatientController {
 
-
     private PatientService patientService;
-
 
     @Autowired
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
+    }
 
+    @GetMapping("/patients/{id}")
+    public Patient getPatient(@PathVariable Long id) {
+        return patientService.getPatient(id);
     }
 
     @PostMapping("/patients")
     public Patient newPatient(@RequestBody @Valid PatientDto patientDto){
         return patientService.newPatient(patientDto);
-    }
-    
-    @GetMapping("/patients/{id}")
-    public Patient getPatient(@PathVariable Long id) {
-        return patientService.getPat(id);
     }
 }
