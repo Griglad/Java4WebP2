@@ -1,6 +1,5 @@
 package org.java4web.controllers;
 
-import org.java4web.model.Appointment;
 import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,19 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("patients/appointments")
+    @GetMapping("/appointments/{id}")
+    public MappingJacksonValue getAppointmentById(@PathVariable Long id) {
+        return appointmentService.getAppointmentById(id);
+    }
+
+    @GetMapping("/patients/appointments")
     public MappingJacksonValue getPatientAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
                                               @RequestParam(value = "from", required = false) String dateFrom,
                                               @RequestParam(value = "to", required = false) String dateTo) {
         return appointmentService.getPatientAppointments(specialtyName, dateFrom, dateTo);
     }
 
-    @GetMapping("doctors/appointments")
+    @GetMapping("/doctors/appointments")
     public MappingJacksonValue getDoctorAppointments(@RequestParam(value = "descr", required = false) String description,
                                                       @RequestParam(value = "from", required = false) String dateFrom,
                                                       @RequestParam(value = "to", required = false) String dateTo) {
@@ -39,24 +43,13 @@ public class AppointmentController {
         return appointmentService.newAppointment(appointmentDto, principal);
     }
 
-    @GetMapping("/appointments/{id}")
-    public Appointment getAppointmentById(@PathVariable Long id) {
-
-        return appointmentService.getAppointmentById(id);
-
-    }
-
-
     @PutMapping("/appointments/{id}")
-    public Appointment updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentDto updatedAppointmentDto, Principal principal) {
+    public MappingJacksonValue updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentDto updatedAppointmentDto, Principal principal) {
         return appointmentService.updateAppointment(id, updatedAppointmentDto, principal);
     }
 
-
-    @DeleteMapping("appointments/{id}")
+    @DeleteMapping("/appointments/{id}")
     public void deleteAppointmentById(@PathVariable Long id) {
         appointmentService.deleteAppointmentById(id);
     }
-
-
 }

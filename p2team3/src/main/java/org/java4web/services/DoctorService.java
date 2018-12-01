@@ -26,15 +26,13 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
     private SpecialtyRepository specialtyRepository;
     private AppointmentRepository appointmentRepository;
-    private PatientRepository patientRepository;
 
 
     @Autowired
-    public DoctorService(DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository,AppointmentRepository appointmentRepository,PatientRepository patientRepository) {
+    public DoctorService(DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository,AppointmentRepository appointmentRepository) {
         this.doctorRepository = doctorRepository;
         this.specialtyRepository = specialtyRepository;
         this.appointmentRepository = appointmentRepository;
-        this.patientRepository = patientRepository;
     }
 
     public List<Doctor> getAll() {
@@ -64,31 +62,10 @@ public class DoctorService {
         }
     }
 
-
-
     public Appointment getDoctorAppointment(@PathVariable Long id) {
         return appointmentRepository.findById(id)
                 .orElseThrow(() -> new AppointmentNotFoundException(id));
     }
-
-
-    public Patient getPatient(@PathVariable Long id)
-    {
-
-        Optional <Patient> patientOptional =  patientRepository.findById(id);
-        if(patientOptional.isPresent())
-        {
-            Patient patient = patientOptional.get();
-            return patient;
-        }
-        else{
-            throw new PatientNotFoundException(id);
-        }
-
-    }
-
-
-
 }
 
 

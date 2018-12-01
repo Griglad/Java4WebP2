@@ -1,5 +1,7 @@
 package org.java4web.services;
 
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.java4web.exceptions.AppointmentCannotBeUpdated;
 import org.java4web.exceptions.AppointmentNotFoundException;
 import org.java4web.exceptions.DoctorNotFoundException;
@@ -42,6 +44,12 @@ public class AppointmentService {
         this.specialtyRepository = specialtyRepository;
     }
 
+    public MappingJacksonValue getAppointmentById(@PathVariable Long id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException(id));
+        return createMJVAppointment(appointment, true);
+    }
+
     public MappingJacksonValue newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
         Date appointmentDate = Utils.dateFormatParse(appointmentDto.getDate());
 
@@ -63,7 +71,7 @@ public class AppointmentService {
             entityAppointment.setDescr(appointmentDto.getDescr());
             entityAppointment.setNotes(appointmentDto.getNotes());
 
-            return createMJVforGetAppointment(appointmentRepository.save(entityAppointment));
+            return createMJVAppointment(appointmentRepository.save(entityAppointment), false);
         }
 
         return null;
@@ -80,17 +88,17 @@ public class AppointmentService {
             if (fromDate == null && toDate == null) {
                 //TODO: Catch Long parsing.
                 if (specialty.isPresent()) {
-                    return createMJVforGetAppointments((appointmentRepository.findBySpecialtyId(specialty.get().getId())));
+                    return createMJVAppointments((appointmentRepository.findBySpecialtyId(specialty.get().getId())), false);
                 } else {
                     throw new SpecialtyNotFoundException(specialtyIdStr);
                 }
             } else if (fromDate != null && toDate != null) {
-                return createMJVforGetAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId, fromDate, toDate)));
+                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId, fromDate, toDate)), false);
             } else if(fromDate!= null) {
-                return createMJVforGetAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeAfter(specialtyId, fromDate)));
+                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeAfter(specialtyId, fromDate)), false);
             }
             else{
-                return createMJVforGetAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBefore(specialtyId, toDate)));
+                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBefore(specialtyId, toDate)), false);
             }
         } else {
             return getAppointments(fromDate, toDate);
@@ -115,36 +123,17 @@ public class AppointmentService {
     public MappingJacksonValue getAppointments(Date fromDate, Date toDate){
 
         if (fromDate != null && toDate != null) {
-            return createMJVforGetAppointments(appointmentRepository.findByDateTimeBetween(fromDate, toDate));
+            return createMJVAppointments(appointmentRepository.findByDateTimeBetween(fromDate, toDate), false);
         } else if(fromDate != null) {
-            return createMJVforGetAppointments(appointmentRepository.findByDateTimeAfter(fromDate));
+            return createMJVAppointments(appointmentRepository.findByDateTimeAfter(fromDate), false);
         }
         else if(toDate != null){
-            return createMJVforGetAppointments(appointmentRepository.findByDateTimeBefore(toDate));
+            return createMJVAppointments(appointmentRepository.findByDateTimeBefore(toDate), false);
         }
-        return createMJVforGetAppointments(appointmentRepository.findAll());
+        return createMJVAppointments(appointmentRepository.findAll(), false);
     }
 
-    MappingJacksonValue createMJVforGetAppointments(List<Appointment> appointments) {
-        return applyMJVAppointmentsFilters(new MappingJacksonValue(appointments));
-    }
-
-
-    MappingJacksonValue createMJVforGetAppointment(Appointment appointment) {
-        return applyMJVAppointmentsFilters(new MappingJacksonValue(appointment));
-    }
-
-    MappingJacksonValue applyMJVAppointmentsFilters(MappingJacksonValue wrapper) {
-        CustomUserDetails userDetails =
-                (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (wrapper != null) {
-            userDetails.getUser().setFiltersForGetAppointments(wrapper);
-        }
-        return wrapper;
-    }
-
-    @PutMapping("/appointments/{id}")
-    public Appointment updateAppointment(@PathVariable Long id, @RequestBody @Valid AppointmentDto
+    public MappingJacksonValue updateAppointment(@PathVariable Long id, @RequestBody @Valid AppointmentDto
             appointmentDtoToUpdate, Principal principal) {
 
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
@@ -163,17 +152,11 @@ public class AppointmentService {
 
 
             appointmentToUpdate.setDateTime(newDate);
-
-            return appointmentRepository.save(appointmentToUpdate);
+            Appointment appointment = appointmentRepository.save(appointmentToUpdate);
+            return createMJVAppointment(appointment, true);
         } else {
             throw new AppointmentCannotBeUpdated();
         }
-
-    }
-
-    public Appointment getAppointmentById(@PathVariable Long id) {
-        return appointmentRepository.findById(id)
-                .orElseThrow(() -> new AppointmentNotFoundException(id));
 
     }
 
@@ -181,7 +164,39 @@ public class AppointmentService {
 
         getAppointmentById(id);
         appointmentRepository.deleteById(id);
-
     }
+
+    MappingJacksonValue createMJVAppointments(List<Appointment> appointments, boolean defaultFilters) {
+        if(defaultFilters)
+            return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointments));
+        else{
+            return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointments));
+        }
+    }
+
+
+    MappingJacksonValue createMJVAppointment(Appointment appointment, boolean defaultFilters) {
+        if(defaultFilters)
+            return applyMJVAppointmentDefaultFilters(new MappingJacksonValue(appointment));
+        else{
+            return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointment));
+        }
+    }
+
+    MappingJacksonValue applyMJVAppointmentDefaultFilters(MappingJacksonValue wrapper){
+        wrapper.setFilters(new SimpleFilterProvider()
+                .addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAll()));
+        return wrapper;
+    }
+
+    MappingJacksonValue applyMJVAppointmentsCustomFilters(MappingJacksonValue wrapper) {
+        CustomUserDetails userDetails =
+                (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (wrapper != null) {
+            userDetails.getUser().setFiltersForGetAppointments(wrapper);
+        }
+        return wrapper;
+    }
+
 }
 
