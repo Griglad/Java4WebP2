@@ -14,28 +14,20 @@ $(document).ready(function () {
     $('#searchButton').click(function(){
         var myData={};
         if($("#dropdownMenuButton1").text().trim()!='Ειδικότητα'){
-            alert('Test1');
-            alert($("#dropdownMenuButton1").text());
             myData.spec = $("#dropdownMenuButton1").attr('data-id');
         }
         if($('#date1').val()!=''){
-            alert('Test2');
             var date1 =  $('#date1').val();
             var fixedDate1 = formatDate(date1);
-            alert(fixedDate1);
             myData.from = fixedDate1;
         }
 
         if($('#date2').val()!=''){
-            alert('test3');
             var date2 =  $('#date2').val();
             var fixedDate2 = formatDate(date2);
-            alert(fixedDate2);
             myData.to = fixedDate2;
         }
-        
-        //myData.from = '2010/11/01 11:07';
-        //myData.to = '2020/11/01 11:07';
+
         var table = $('#table_id').DataTable({
             ajax:{
                 url:'http://localhost:8080/patients/appointments',
@@ -59,11 +51,6 @@ $(document).ready(function () {
             ]
         });
 
-        $('#editme').click( function () {
-            alert('Hey!!!!!!!!!');
-            var data = table.row( $(this).parents('tr') ).data();
-            location.replace(ROOT_PATH +"/pages/patient/editAppointment.html?id="+data[1]);
-        } );
     })
 
 
