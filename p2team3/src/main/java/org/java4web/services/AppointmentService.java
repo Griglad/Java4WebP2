@@ -33,7 +33,7 @@ public class AppointmentService {
 
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
-    private final AppointmentRepository appointmentRepository;
+    private  AppointmentRepository appointmentRepository;
     private final SpecialtyRepository specialtyRepository;
 
     public AppointmentService(AppointmentRepository appointmentRepository, PatientRepository patientRepository,
@@ -105,19 +105,17 @@ public class AppointmentService {
         }
     }
 
-    public MappingJacksonValue getDoctorAppointments(String description, String dateFrom, String dateTo) {
+    public MappingJacksonValue getDoctorAppointments(String descr,String fromDate,String dateTo) {
 
-        Date fromDate = Utils.dateFormatParse(dateFrom);
-        Date toDate = Utils.dateFormatParse(dateTo);
+        Date Datefrom = Utils.dateFormatParse(fromDate);
+        Date DateTo = Utils.dateFormatParse(dateTo);
 
-        if (description != null){
 
-            //TODO: With elastic search
+        return createMJVAppointments(appointmentRepository.findByDescription(descr), false);
 
-            return null;
-        } else {
-            return getAppointments(fromDate, toDate);
-        }
+
+
+
     }
 
     public MappingJacksonValue getAppointments(Date fromDate, Date toDate){

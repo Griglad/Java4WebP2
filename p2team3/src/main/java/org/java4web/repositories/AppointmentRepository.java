@@ -3,6 +3,7 @@ package org.java4web.repositories;
 import org.java4web.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -39,5 +40,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "inner join Specialty on Doctor.specialty_id = Specialty.id " +
             "where (Specialty.id = ?1) and (Appointment.date_time < ?2)", nativeQuery = true)
     List<Appointment> findBySpecialtyIdAndDateTimeBefore(Long specialty, Date dateTo);
+
+
+    @Query(value = "select app from Appointment app inner join Doctor doc on app.doctor=doc.id where app.descr like concat ('%',:descr,'%') ")
+         List<Appointment> findByDescription(@Param("descr") String descr);
+
+
+
+
 }
 

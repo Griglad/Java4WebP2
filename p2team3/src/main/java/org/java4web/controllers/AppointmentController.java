@@ -1,5 +1,6 @@
 package org.java4web.controllers;
 
+import org.java4web.model.Appointment;
 import org.java4web.services.AppointmentService;
 import org.java4web.utils.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class AppointmentController {
@@ -26,16 +28,16 @@ public class AppointmentController {
 
     @GetMapping("/patients/appointments")
     public MappingJacksonValue getPatientAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
-                                              @RequestParam(value = "from", required = false) String dateFrom,
-                                              @RequestParam(value = "to", required = false) String dateTo) {
+                                                      @RequestParam(value = "from", required = false) String dateFrom,
+                                                      @RequestParam(value = "to", required = false) String dateTo) {
         return appointmentService.getPatientAppointments(specialtyName, dateFrom, dateTo);
     }
 
     @GetMapping("/doctors/appointments")
-    public MappingJacksonValue getDoctorAppointments(@RequestParam(value = "descr", required = false) String description,
-                                                      @RequestParam(value = "from", required = false) String dateFrom,
-                                                      @RequestParam(value = "to", required = false) String dateTo) {
-        return appointmentService.getDoctorAppointments(description, dateFrom, dateTo);
+    public MappingJacksonValue getDoctorAppointments(@RequestParam(value = "descr", required = false) String descr,
+                                                     @RequestParam(value = "from", required = false) String dateFrom,
+                                                     @RequestParam(value = "to", required = false) String dateTo) {
+        return appointmentService.getDoctorAppointments(descr, dateFrom, dateTo);
     }
 
     @PostMapping("/appointments")
