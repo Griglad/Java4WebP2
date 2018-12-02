@@ -76,13 +76,21 @@ function populateDropdown2(doctors) {
 }
 
 function formatDate(initDate) {
-    var splitDate = initDate.split(" ");
-    var date = splitDate[0];
-    var time = splitDate[1];
-    var dateParts = date.split("/");
-    var year = dateParts[2];
-    var month = dateParts[0];
-    var day = dateParts[1];
-    var formattedDate = year.concat("/", month, "/", day, " ", time);
+    const splitDate = initDate.split(" ");
+    const date = splitDate[0];
+    let time = splitDate[1];
+    const pm = splitDate[2];
+    const hoursmins = time.split(":");
+    let hours = hoursmins[0];
+    const mins = hoursmins[1];
+    if(pm=="PM"){
+        const editedhours= Number(hours)+12;
+        time = editedhours.toString().concat(":",mins);
+    }
+    const dateParts = date.split("/");
+    const year = dateParts[2];
+    const month = dateParts[0];
+    const day = dateParts[1];
+    const formattedDate = year.concat("/", month, "/", day, " ", time);
     return formattedDate;
 }
