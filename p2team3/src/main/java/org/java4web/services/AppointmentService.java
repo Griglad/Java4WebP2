@@ -158,7 +158,7 @@ public class AppointmentService {
 
             return saveAppointment(appointmentToUpdate);
         } else {
-            throw new AppointmentCannotBeUpdated();
+            throw new AppointmentCannotBeUpdated(id);
         }
     }
 

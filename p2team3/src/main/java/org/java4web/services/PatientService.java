@@ -1,7 +1,7 @@
 package org.java4web.services;
 
 import org.java4web.exceptions.CreateRecordException;
-import org.java4web.exceptions.ExceptionMessages;
+import org.java4web.exceptions.ExceptionMessagesForExistingValues;
 import org.java4web.exceptions.PatientNotFoundException;
 import org.java4web.model.Patient;
 import org.java4web.repositories.PatientRepository;
@@ -29,15 +29,15 @@ public class PatientService {
     public Patient newPatient(@Valid PatientDto patientDto) {
 
         if (patientRepository.findByEmail(patientDto.getEmail()) != null) {
-            throw new CreateRecordException(ExceptionMessages.EMAIL_ALREADY_EXISTS.getErrorMessage());
+            throw new CreateRecordException(ExceptionMessagesForExistingValues.EMAIL_ALREADY_EXISTS.getErrorMessage());
         }
         if (patientRepository.findByAmka(patientDto.getAmka()) != null) {
-            throw new CreateRecordException(ExceptionMessages.AMKA_ALREADY_EXISTS.getErrorMessage());
+            throw new CreateRecordException(ExceptionMessagesForExistingValues.AMKA_ALREADY_EXISTS.getErrorMessage());
 
         }
 
         if (patientRepository.findByUsername(patientDto.getUsername()) != null) {
-            throw new CreateRecordException(ExceptionMessages.USERNAME_ALREADY_EXISTS.getErrorMessage());
+            throw new CreateRecordException(ExceptionMessagesForExistingValues.USERNAME_ALREADY_EXISTS.getErrorMessage());
         }
 
         Patient entityPatient = new Patient();

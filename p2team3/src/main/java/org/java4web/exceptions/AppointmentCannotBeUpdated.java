@@ -1,9 +1,9 @@
 package org.java4web.exceptions;
 
 public class AppointmentCannotBeUpdated extends RuntimeException{
-    public AppointmentCannotBeUpdated()
+    public AppointmentCannotBeUpdated(Long id)
     {
-        super("Appointment cannot be Updated");
+        super("Could not update Appointment with id " + id);
     }
 
 }

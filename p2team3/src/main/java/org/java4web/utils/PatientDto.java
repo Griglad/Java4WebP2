@@ -12,7 +12,7 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{first.not.blank}")
     @NotNull(message = "{first.not.null}")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "{first.only.letters}")
+    @Pattern(regexp = "^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώ]+$", message = "{first.only.letters}")
     public String getFirstName() {
         return firstName;
     }
@@ -25,7 +25,7 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{last.not.blank}")
     @NotNull(message = "{last.not.null}")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "{last.only.letters}")
+    @Pattern(regexp = "^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώ]+$", message = "{last.only.letters}")
     public String getLastName() {
         return lastName;
     }
@@ -50,7 +50,7 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{mobile.not.blank}")
     @NotNull(message = "{mobile.not.null")
-    @Pattern(regexp = "^(\\d{10}|\\d{12})$", message = "{mobile.digits}")
+    @Pattern(regexp = "^(\\d{10}|\\d{14})$", message = "{mobile.digits}")
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -74,7 +74,7 @@ public class PatientDto extends Patient {
 
     @NotBlank(message = "{amka.not.blank}")
     @NotNull(message = "{amka.not.null}")
-    @Pattern(regexp = "^[0-9]{9}$", message = "{amka.only.digits}")
+    @Pattern(regexp = "^[0-9]{11}$", message = "{amka.only.digits}")
     public String getAmka() {
         return super.getAmka();
     }

@@ -1,6 +1,6 @@
 package org.java4web.exceptions;
 
-public enum ExceptionMessages {
+public enum ExceptionMessagesForExistingValues {
 
     EMAIL_ALREADY_EXISTS("This Email already exists"),
     AMKA_ALREADY_EXISTS("This Amka already exists"),
@@ -10,7 +10,7 @@ public enum ExceptionMessages {
     private String ErrorMessage;
 
 
-    ExceptionMessages(String errorMessage) {
+    ExceptionMessagesForExistingValues(String errorMessage) {
         this.ErrorMessage = errorMessage;
     }
 
