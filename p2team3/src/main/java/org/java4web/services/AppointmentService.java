@@ -132,7 +132,7 @@ public class AppointmentService {
     public List<Appointment> getAppointments(Date fromDate, Date toDate){
 
         if (fromDate != null && toDate != null) {
-            appointmentRepository.findByDateTimeBetween(fromDate, toDate);
+            return appointmentRepository.findByDateTimeBetween(fromDate, toDate);
         } else if(fromDate != null) {
             return appointmentRepository.findByDateTimeAfter(fromDate);
         }

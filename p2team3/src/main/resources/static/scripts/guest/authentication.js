@@ -1,9 +1,9 @@
 function login(usernameElement, passwordElement, ddRoleElement) {
     let username = usernameElement;
     let password = passwordElement;
-    let role =  "p";
+    let role =  ROLE_PATIENT_PREFIX;
     if(ddRoleElement=='Γιατρός'){
-        role = "d";
+        role = ROLE_DOCTOR_PREFIX;
     }
     var fd = new FormData();
     fd.append( 'username', role+username);
@@ -17,6 +17,7 @@ function login(usernameElement, passwordElement, ddRoleElement) {
       type: 'POST',
       success: function(data){
         sessionStorage.setItem(SESSION_STORAGE_LOGIN_TOKEN_NAME, username);
+        sessionStorage.setItem(SESSION_STORAGE_LOGIN_TOKEN_ROLE, role);
         if(role == ROLE_DOCTOR_PREFIX){
             window.location.replace(ROOT_PATH + "/pages/doctor/index.html");
         }

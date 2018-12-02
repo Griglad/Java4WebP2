@@ -24,7 +24,7 @@ public class Appointment {
     protected Doctor doctor;
 
     @Column(nullable = false, columnDefinition="DATETIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Utils.dateTimeFormat)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Utils.dateTimeFormat, timezone="Europe/Athens")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateTime;
 
