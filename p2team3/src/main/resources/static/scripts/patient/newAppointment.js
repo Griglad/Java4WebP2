@@ -38,7 +38,7 @@ $(document).ready(function () {
                         type: 'POST',
                         success: function(resultData){
                             alert("Το νέο ραντεβού έχει προστεθεί!");
-                            location.replace("./index.html");
+                            window.location.replace(ROOT_PATH + "/pages/patient/index.html");
                         },
                         error: function(resultData){
                         var data=resultData.responseText;

@@ -58,6 +58,7 @@ $(document).ready(function () {
                 type: 'PUT'
             }).then(function () {
                 alert("Το Ραντεβού ενημερώθημε με επιτυχία!");
+                window.location.replace(ROOT_PATH +"/pages/patient/index.html");
             });
         });
 
@@ -69,6 +70,9 @@ $(document).ready(function () {
             $.ajax({
                 url: ROOT_PATH + "/appointments/" + appId,
                 type: 'DELETE'
+            }).then(function(){
+                alert("Το ραντεβού έχει διαγραφεί");
+                window.location.replace(ROOT_PATH +"/pages/patient/index.html");
             });
         };
     });
