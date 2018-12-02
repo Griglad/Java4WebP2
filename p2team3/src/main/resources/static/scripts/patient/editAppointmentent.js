@@ -24,65 +24,45 @@ $(document).ready(function () {
         $("#doctor").attr("value", appointment.doctor.firstName + " " + appointment.doctor.lastName);
         $('#appointmentDate').attr("value", appointment.dateTime);
         $("#descriptionTextArea").text(appointment.descr);
-        $("#notesTextArea").text( appointment.notes);
+        $("#notesTextArea").text(appointment.notes);
 
         var appointDate = $("#appointmentDate").attr("value");
-    alert(appointDate);
-    alert($("#appointmentDate").attr("value"));
-
-    $("#appointmentDate").change(function () {
-        alert("Hey");
-         appointDate = formatDate($(this).attr("value"));
-    });
-
-    
 
 
-    $("#buttonUpdate").click(function () {
-        if($("#appointmentDate").val()!=appointDate){
-            alert("imerominia");
-            appointDate= formatDate($("#appointmentDate").val());
-        }
-        var editedData = {
-           "descr": $("#descriptionTextArea").val(),
-            "date" : appointDate,
-            "notes" : $("#notesTextArea").val()
-        };
-        var editedDatajson = JSON.stringify(editedData);
-       // alert(editedData);
-        //alert(editedDatajson);
-        var testjson = {};
-        if (JSON.stringify(editedData) === JSON.stringify(testjson)) {
-            return;
-        }
-        $.ajax({
-            url: ROOT_PATH + "/appointments/" + appId,
-            data: editedDatajson,
-            processData: false,
-            contentType: 'application/json',
-            type: 'PUT'  
+        $("#appointmentDate").change(function () {
+            appointDate = formatDate($(this).attr("value"));
         });
-    });
+
+
+
+
+        $("#buttonUpdate").click(function () {
+            if ($("#appointmentDate").val() != appointDate) {
+                appointDate = formatDate($("#appointmentDate").val());
+            }
+            var editedData = {
+                "descr": $("#descriptionTextArea").val(),
+                "date": appointDate,
+                "notes": $("#notesTextArea").val()
+            };
+            var editedDatajson = JSON.stringify(editedData);
+            var testjson = {};
+            if (JSON.stringify(editedData) === JSON.stringify(testjson)) {
+                return;
+            }
+            $.ajax({
+                url: ROOT_PATH + "/appointments/" + appId,
+                data: editedDatajson,
+                processData: false,
+                contentType: 'application/json',
+                type: 'PUT'
+            }).then(function () {
+                alert("Το Ραντεβού ενημερώθημε με επιτυχία!");
+            });
+        });
 
     });
 
-   // var editedData = {}; 
-    //$("#descriptionTextArea").change(function () {
-    ///    editedData.descr = $(this).val();
-    //    alert("Hey"+$(this).val());
-   //     alert(JSON.stringify(editedData));
-  //  });
-
-   // $("#appointmentDate").change(function () {
-       // editedData.date = formatDate($(this).val());
-   // });
-
-   // $("#notesTextArea").change(function () {
-   //     editedData.notes = $(this).val();
-   //     alert(JSON.stringify(editedData));
-   // });
-
-    
 
     $("#buttonDelete").click(function () {
         if (confirm("Το Ραντεβού θα διαγραφεί οριστικά.")) {

@@ -8,7 +8,7 @@ $(document).ready(function () {
         $('#dp1 a').click(function () {
             $('#selected1').text($(this).text());
             $.ajax({
-                url: ROOT_PATH + "/doctors/spec/" + $(this).text()
+                url: ROOT_PATH + "/doctors/spec/" + $(this).attr("data-id")
             }).then(function (doctors) {
                 $('#dp2').empty();
                 $('#dropdownMenuButton').text("Γιατρός");
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
 function populateDropdown1(specialties) {
     jQuery.each(specialties, function (i, specialty) {
-        $("#dp1").append("<li><a href='#' id='" + specialty.id + "'>" + specialty.name + "</a></li>");
+        $("#dp1").append("<li><a href='#' data-id='" + specialty.id + "'>" + specialty.name + "</a></li>");
 
     });
 }

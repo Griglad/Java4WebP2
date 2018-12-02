@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <script type="text/javascript" src="../../scripts/patient/newAppointment.js"></script>
     <script type="text/javascript" src="../../scripts/config/main.js"></script>
+    <script type="text/javascript" src="../../scripts/patient/homepage.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -126,10 +127,10 @@ body {
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Αρχική Σελίδα</a>
+        <a href="../patient/index.html">Αρχική Σελίδα</a>
         <a href="#">Νέο Ραντεβού</a>
-        <a href="#">Αναζήτηση</a>
-        <a href="#">Έξοδος</a>
+        
+        <a href="#" onclick="logout()">Έξοδος</a>
     </div>
 
 
@@ -148,7 +149,7 @@ body {
                 <img src="logo.gif" alt="Home" style="width:42px;height:42px;border:0;">
             </a>
 
-            <a id="navLinks" class="offset-md-9" href="html_images.asp" target="_blank">Αποσύνδεση</a>
+            <a id="navLinks" class="offset-md-9" onclick="logout()" target="_blank">Αποσύνδεση</a>
 
         </div>
 
@@ -225,7 +226,7 @@ body {
 
                 <div class="container-fluid mt-4">
                     <div class="form-row justify-content-end">
-                        <button type="submit" id="buttonBack" class="btn btn-primary mr-4">Πίσω</button>
+                        <a type="button" href="../patient/index.html" id="buttonBack" class="btn btn-primary mr-4">Πίσω</a>
                         <button type="submit" id="buttonCreate" class="btn btn-primary">Δημιουργία</button>
                     </div>
                 </div>

@@ -25,6 +25,7 @@
 
     <script type="text/javascript" src="../../scripts/patient/searchAppointment.js"></script>
     <script type="text/javascript" src="../../scripts/config/main.js"></script>
+    <script type="text/javascript" src="../../scripts/patient/homepage.js"></script>
 
 
 
@@ -143,9 +144,8 @@ body {
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Αρχική Σελίδα</a>
-        <a href="#">Νέο Ραντεβού</a>
-        <a href="#">Αναζήτηση</a>
-        <a href="#">Έξοδος</a>
+        <a href="../patient/newAppointment.html">Νέο Ραντεβού</a>
+        <a href="#" onclick="logout()">Έξοδος</a>
     </div>
 
 
@@ -164,7 +164,7 @@ body {
                 <img src="smiley.gif" alt="Home" style="width:42px;height:42px;border:0;">
             </a>
 
-            <a id="navLinks" class="offset-md-9" href="html_images.asp" target="_blank">Αποσύνδεση</a>
+            <a id="navLinks" class="offset-md-9"  target="_blank" onclick="logout()">Αποσύνδεση</a>
 
         </div>
 
