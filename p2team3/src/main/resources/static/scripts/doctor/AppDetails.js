@@ -22,7 +22,7 @@ $(document).ready(function () {
     }).then(function (appointment) {
         $("#descriptionTextField").text(appointment.descr);
         $("#detailsTextField").text(appointment.notes);
-        $("#patientDetails").attr("href",ROOT_PATH + "/pages/doctor/patientDetails.html?id=" + appointment.patient.id);
+        $("#patientDetails").attr("href",ROOT_PATH + "/pages/doctor/patientDetails.html?id=" + appointment.patient.id + "&appid=" + appointment.id);
 
         //var appointDate = $("#appointmentDate").attr("value");
 

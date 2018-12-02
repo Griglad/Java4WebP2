@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    $('#mChoice2').click(function(){
+        logout();
+    });
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
             sURLVariables = sPageURL.split('&'),
@@ -16,6 +19,7 @@ $(document).ready(function () {
     };
 
     const patientId = getUrlParameter('id');
+    const appId = getUrlParameter('appid');
 
     $.ajax({
         url: ROOT_PATH + "/patients/" + patientId
@@ -24,6 +28,9 @@ $(document).ready(function () {
         $("#amkaField").text(patient.amka);
         $("#phoneField").text(patient.mobilePhone);
         $("#emailField").text(patient.email);
+        $("#buttonBack").click(function(){
+            window.location.replace(ROOT_PATH + "/pages/doctor/AppointmentDetails.html?id="+appId);
+        })
 
     });
 });
