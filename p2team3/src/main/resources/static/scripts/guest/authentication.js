@@ -2,9 +2,7 @@ function login(usernameElement, passwordElement, ddRoleElement) {
     let username = usernameElement;
     let password = passwordElement;
     let role =  "p";
-    //alert("Hey "+usernameElement.value);
     if(ddRoleElement=='Γιατρός'){
-        alert("Hey doc!");
         role = "d";
     }
     var fd = new FormData();
@@ -28,7 +26,7 @@ function login(usernameElement, passwordElement, ddRoleElement) {
       },
       statusCode: {
         401 : function() {
-                alert("Invalid username or password!");
+            $('.alert-danger').removeAttr('hidden');
             }
         }
     });

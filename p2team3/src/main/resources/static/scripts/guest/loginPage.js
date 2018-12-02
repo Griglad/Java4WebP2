@@ -5,8 +5,6 @@ $(document).ready(function () {
     });
 
     $('#loginButton').click(function(){
-        alert($('#inputUsername').val());
-        alert($('#InputPassword').val());
         login($('#inputUsername').val(),$('#InputPassword').val(),$('#dropdownSpecialty').text());
     });
 });
