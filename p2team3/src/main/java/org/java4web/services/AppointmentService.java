@@ -8,8 +8,8 @@ import org.java4web.exceptions.SpecialtyNotFoundException;
 import org.java4web.model.*;
 import org.java4web.repositories.AppointmentRepository;
 import org.java4web.security.CustomUserDetails;
-import org.java4web.utils.AppointmentDto;
-import org.java4web.utils.Utils;
+import org.java4web.utilities.AppointmentDto;
+import org.java4web.utilities.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.access.annotation.Secured;
@@ -164,7 +164,7 @@ public class AppointmentService {
 
     public MappingJacksonValue createMJVAppointments(List<Appointment> appointments, boolean defaultFilters) {
         if(defaultFilters)
-            return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointments));
+            return applyMJVAppointmentsDefaultFilters(new MappingJacksonValue(appointments));
         else{
             return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointments));
         }
@@ -173,13 +173,13 @@ public class AppointmentService {
 
     public MappingJacksonValue createMJVAppointment(Appointment appointment, boolean defaultFilters) {
         if(defaultFilters)
-            return applyMJVAppointmentDefaultFilters(new MappingJacksonValue(appointment));
+            return applyMJVAppointmentsDefaultFilters(new MappingJacksonValue(appointment));
         else{
             return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointment));
         }
     }
 
-    MappingJacksonValue applyMJVAppointmentDefaultFilters(MappingJacksonValue wrapper){
+    MappingJacksonValue applyMJVAppointmentsDefaultFilters(MappingJacksonValue wrapper){
         wrapper.setFilters(new SimpleFilterProvider()
                 .addFilter("AppointmentFilter", SimpleBeanPropertyFilter.serializeAll()));
         return wrapper;

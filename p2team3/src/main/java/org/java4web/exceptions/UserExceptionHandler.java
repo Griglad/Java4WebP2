@@ -1,6 +1,5 @@
 package org.java4web.exceptions;
 
-import org.java4web.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -83,6 +82,4 @@ public class UserExceptionHandler {
         errorResponse.setMessage(ex.getMessage());
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
     }
-
-
 }

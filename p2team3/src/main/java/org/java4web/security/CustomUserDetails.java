@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CustomUserDetails implements UserDetails {
     private final CustomUser user;

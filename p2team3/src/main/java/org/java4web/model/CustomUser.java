@@ -3,9 +3,9 @@ package org.java4web.model;
 import org.springframework.http.converter.json.MappingJacksonValue;
 
 public interface CustomUser {
-    public String getUsername();
+    String getUsername();
 
-    public String getPassword();
+    String getPassword();
 
-    public void setFiltersForGetAppointments(MappingJacksonValue wrapper);
+    void setFiltersForGetAppointments(MappingJacksonValue wrapper);
 }

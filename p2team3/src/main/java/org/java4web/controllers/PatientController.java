@@ -2,7 +2,7 @@ package org.java4web.controllers;
 
 import org.java4web.model.Patient;
 import org.java4web.services.PatientService;
-import org.java4web.utils.PatientDto;
+import org.java4web.utilities.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.validation.annotation.Validated;

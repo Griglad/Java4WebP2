@@ -5,7 +5,7 @@ import org.java4web.exceptions.ExceptionMessagesForExistingValues;
 import org.java4web.exceptions.PatientNotFoundException;
 import org.java4web.model.Patient;
 import org.java4web.repositories.PatientRepository;
-import org.java4web.utils.PatientDto;
+import org.java4web.utilities.PatientDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
