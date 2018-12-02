@@ -53,4 +53,8 @@ public class PatientService {
         return patientRepository.findById(id)
                 .orElseThrow(() -> new PatientNotFoundException(id));
     }
+
+    public Patient getPatientByUsername(String username){
+        return patientRepository.findByUsername(username);
+    }
 }

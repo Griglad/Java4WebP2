@@ -4,175 +4,165 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.java4web.exceptions.AppointmentCannotBeUpdated;
 import org.java4web.exceptions.AppointmentNotFoundException;
-import org.java4web.exceptions.DoctorNotFoundException;
 import org.java4web.exceptions.SpecialtyNotFoundException;
 import org.java4web.model.*;
 import org.java4web.repositories.AppointmentRepository;
-import org.java4web.repositories.DoctorRepository;
-import org.java4web.repositories.PatientRepository;
-import org.java4web.repositories.SpecialtyRepository;
 import org.java4web.security.CustomUserDetails;
 import org.java4web.utils.AppointmentDto;
 import org.java4web.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class AppointmentService {
 
-    private final PatientRepository patientRepository;
-    private final DoctorRepository doctorRepository;
+    private final PatientService patientService;
+    private final DoctorService doctorService;
     private final AppointmentRepository appointmentRepository;
-    private final SpecialtyRepository specialtyRepository;
+    private final SpecialtyService specialtyService;
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, PatientRepository patientRepository,
-                              DoctorRepository doctorRepository, SpecialtyRepository specialtyRepository) {
+    public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService,
+                              DoctorService doctorService, SpecialtyService specialtyService) {
         this.appointmentRepository = appointmentRepository;
-        this.patientRepository = patientRepository;
-        this.doctorRepository = doctorRepository;
-        this.specialtyRepository = specialtyRepository;
+        this.patientService = patientService;
+        this.doctorService = doctorService;
+        this.specialtyService = specialtyService;
     }
 
-    public MappingJacksonValue getAppointmentById(@PathVariable Long id) {
-        Appointment appointment = appointmentRepository.findById(id)
+    @PostAuthorize("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PATIENT') and returnObject.patient.username == authentication.principal.username) " +
+            "or (hasRole('ROLE_DOCTOR') and returnObject.doctor.username == authentication.principal.username)")
+    public Appointment getAppointment(Long id) {
+        return appointmentRepository.findById(id)
                 .orElseThrow(() -> new AppointmentNotFoundException(id));
-        return createMJVAppointment(appointment, true);
     }
 
-    public MappingJacksonValue newAppointment(@Valid AppointmentDto appointmentDto, Principal principal) {
+    @PreFilter("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PATIENT') and filterObject.patient.username == authentication.principal.username)")
+    public Appointment saveAppointment(Appointment appointment){
+        return appointmentRepository.save(appointment);
+    }
+
+    @Secured({"ROLE_PATIENT"})
+    public Appointment newAppointment(AppointmentDto appointmentDto, Principal principal) {
         Date appointmentDate = Utils.dateFormatParse(appointmentDto.getDate());
 
         if (!appointmentDate.before(Utils.getToday())) {
 
             Appointment entityAppointment = new Appointment();
 
-            Patient patient = patientRepository.findByUsername(principal.getName());
-
+            Patient patient = patientService.getPatientByUsername(principal.getName());
             entityAppointment.setPatient(patient);
-            Optional<Doctor> doctorOptional = doctorRepository.findById(appointmentDto.getDoctorId());
-            if (doctorOptional == null) {
-                throw new DoctorNotFoundException(appointmentDto.getDoctorId().toString());
-            }
 
-            Doctor doctor = doctorOptional.get();
+            Doctor doctor = doctorService.getDoctor(appointmentDto.getDoctorId());
             entityAppointment.setDoctor(doctor);
+
             entityAppointment.setDateTime(Utils.dateFormatParse(appointmentDto.getDate()));
             entityAppointment.setDescr(appointmentDto.getDescr());
             entityAppointment.setNotes(appointmentDto.getNotes());
 
-            return createMJVAppointment(appointmentRepository.save(entityAppointment), false);
+            return appointmentRepository.save(entityAppointment);
         }
 
         return null;
     }
 
-    public MappingJacksonValue getPatientAppointments(String specialtyIdStr, String dateFrom, String dateTo) throws SpecialtyNotFoundException {
+    @PostFilter("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PATIENT') and filterObject.patient.username == authentication.principal.username)")
+    public List<Appointment> getPatientAppointments(String specialtyIdStr, String dateFrom, String dateTo) throws SpecialtyNotFoundException {
 
         Date fromDate = Utils.dateFormatParse(dateFrom);
         Date toDate = Utils.dateFormatParse(dateTo);
 
         if (specialtyIdStr != null) {
             Long specialtyId = Long.valueOf(specialtyIdStr);
-            Optional<Specialty> specialty = specialtyRepository.findById(specialtyId);
+            Specialty specialty = specialtyService.getSpecialty(specialtyId);
             if (fromDate == null && toDate == null) {
-                //TODO: Catch Long parsing.
-                if (specialty.isPresent()) {
-                    return createMJVAppointments((appointmentRepository.findBySpecialtyId(specialty.get().getId())), false);
-                } else {
-                    throw new SpecialtyNotFoundException(specialtyIdStr);
-                }
+                return appointmentRepository.findBySpecialtyId(specialty.getId());
             } else if (fromDate != null && toDate != null) {
-                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId, fromDate, toDate)), false);
+                return appointmentRepository.findBySpecialtyIdAndDateTimeBetween(specialtyId, fromDate, toDate);
             } else if(fromDate!= null) {
-                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeAfter(specialtyId, fromDate)), false);
+                return appointmentRepository.findBySpecialtyIdAndDateTimeAfter(specialtyId, fromDate);
             }
             else{
-                return createMJVAppointments((appointmentRepository.findBySpecialtyIdAndDateTimeBefore(specialtyId, toDate)), false);
+                return appointmentRepository.findBySpecialtyIdAndDateTimeBefore(specialtyId, toDate);
             }
         } else {
             return getAppointments(fromDate, toDate);
         }
     }
 
-    public MappingJacksonValue getDoctorAppointments(String descr,String dateFrom,String dateTo) {
+    @PostFilter("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PATIENT') and filterObject.patient.username == authentication.principal.username) " +
+            "or (hasRole('ROLE_DOCTOR') and filterObject.doctor.username == authentication.principal.username)")
+    public List<Appointment> getDoctorAppointments(String descr,String dateFrom,String dateTo) {
 
         Date fromDate = Utils.dateFormatParse(dateFrom);
         Date toDate = Utils.dateFormatParse(dateTo);
 
         if(descr!=null){
             if(fromDate == null && toDate == null){
-                return createMJVAppointments(appointmentRepository.findByDescription(descr), false);
+                return appointmentRepository.findByDescription(descr);
             } else if(fromDate != null && toDate != null){
-                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeBetween(descr,fromDate,toDate), false);
+                return appointmentRepository.findByDescriptionAndDateTimeBetween(descr,fromDate,toDate);
             } else if(fromDate != null){
-                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeAfter(descr,fromDate), false);
+                return appointmentRepository.findByDescriptionAndDateTimeAfter(descr,fromDate);
             } else{
-                return createMJVAppointments(appointmentRepository.findByDescriptionAndDateTimeBefore(descr,toDate), false);
+                return appointmentRepository.findByDescriptionAndDateTimeBefore(descr,toDate);
             }
         }else {
             return getAppointments(fromDate, toDate);
         }
     }
 
-    public MappingJacksonValue getAppointments(Date fromDate, Date toDate){
+    @PostFilter("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_DOCTOR') and filterObject.doctor.username == authentication.principal.username)")
+    public List<Appointment> getAppointments(Date fromDate, Date toDate){
 
         if (fromDate != null && toDate != null) {
-            return createMJVAppointments(appointmentRepository.findByDateTimeBetween(fromDate, toDate), false);
+            appointmentRepository.findByDateTimeBetween(fromDate, toDate);
         } else if(fromDate != null) {
-            return createMJVAppointments(appointmentRepository.findByDateTimeAfter(fromDate), false);
+            return appointmentRepository.findByDateTimeAfter(fromDate);
         }
         else if(toDate != null){
-            return createMJVAppointments(appointmentRepository.findByDateTimeBefore(toDate), false);
+            return appointmentRepository.findByDateTimeBefore(toDate);
         }
-        return createMJVAppointments(appointmentRepository.findAll(), false);
+        return appointmentRepository.findAll();
     }
 
-    public MappingJacksonValue updateAppointment(@PathVariable Long id, @RequestBody @Valid AppointmentDto
-            appointmentDtoToUpdate, Principal principal) {
+    @Secured({"ROLE_PATIENT"})
+    public Appointment updateAppointment(Long id, AppointmentDto appointmentDtoToUpdate, Principal principal) {
 
-        Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
-
+        Appointment appointmentToUpdate = getAppointment(id);
 
         Date newDate = Utils.dateFormatParse(appointmentDtoToUpdate.getDate());
         if (!newDate.before(Utils.getToday())) {
-
-            Appointment appointmentToUpdate = optionalAppointment.get();
-
-
             String changedDescription = appointmentDtoToUpdate.getDescr();
             String changedNotes = appointmentDtoToUpdate.getNotes();
+
             appointmentToUpdate.setDescr(changedDescription);
             appointmentToUpdate.setNotes(changedNotes);
-
-
             appointmentToUpdate.setDateTime(newDate);
-            Appointment appointment = appointmentRepository.save(appointmentToUpdate);
-            return createMJVAppointment(appointment, true);
+
+            return saveAppointment(appointmentToUpdate);
         } else {
             throw new AppointmentCannotBeUpdated();
         }
-
     }
 
-    public void deleteAppointmentById(@PathVariable Long id) {
-
-        getAppointmentById(id);
-        appointmentRepository.deleteById(id);
-    }
-
-    MappingJacksonValue createMJVAppointments(List<Appointment> appointments, boolean defaultFilters) {
+    public MappingJacksonValue createMJVAppointments(List<Appointment> appointments, boolean defaultFilters) {
         if(defaultFilters)
             return applyMJVAppointmentsCustomFilters(new MappingJacksonValue(appointments));
         else{
@@ -181,7 +171,7 @@ public class AppointmentService {
     }
 
 
-    MappingJacksonValue createMJVAppointment(Appointment appointment, boolean defaultFilters) {
+    public MappingJacksonValue createMJVAppointment(Appointment appointment, boolean defaultFilters) {
         if(defaultFilters)
             return applyMJVAppointmentDefaultFilters(new MappingJacksonValue(appointment));
         else{
@@ -204,5 +194,10 @@ public class AppointmentService {
         return wrapper;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PATIENT') and #appointment.patient.username == authentication.principal.username)")
+    public void deleteAppointment(Appointment appointment){
+        appointmentRepository.delete(appointment);
+    }
 }
 
