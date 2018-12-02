@@ -127,7 +127,7 @@ public class Patient implements CustomUser{
     @Override
     public String toString() {
         return String.format(
-                "Patient[id=%d, first_name='%s', last_name='%s', amka=%d, email='%s', mobile_phone=%d]",
+                "Patient[id=%d, first_name='%s', last_name='%s', amka='%s', email='%s', mobile_phone='%s']",
                 id, firstName, lastName, amka, email, mobilePhone);
     }
 }

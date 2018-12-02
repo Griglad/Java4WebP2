@@ -23,35 +23,42 @@ public class AppointmentController {
 
     @GetMapping("/appointments/{id}")
     public MappingJacksonValue getAppointmentById(@PathVariable Long id) {
-        return appointmentService.getAppointmentById(id);
+        Appointment appointment = appointmentService.getAppointment(id);
+        return appointmentService.createMJVAppointment(appointment, true);
     }
 
     @GetMapping("/patients/appointments")
     public MappingJacksonValue getPatientAppointments(@RequestParam(value = "spec", required = false) String specialtyName,
                                                       @RequestParam(value = "from", required = false) String dateFrom,
                                                       @RequestParam(value = "to", required = false) String dateTo) {
-        return appointmentService.getPatientAppointments(specialtyName, dateFrom, dateTo);
+        List<Appointment> appointments = appointmentService.getPatientAppointments(specialtyName, dateFrom, dateTo);
+        return appointmentService.createMJVAppointments(appointments, false);
     }
 
     @GetMapping("/doctors/appointments")
     public MappingJacksonValue getDoctorAppointments(@RequestParam(value = "descr", required = false) String descr,
                                                      @RequestParam(value = "from", required = false) String dateFrom,
                                                      @RequestParam(value = "to", required = false) String dateTo) {
-        return appointmentService.getDoctorAppointments(descr, dateFrom, dateTo);
+        List<Appointment> appointments = appointmentService.getDoctorAppointments(descr, dateFrom, dateTo);
+        return appointmentService.createMJVAppointments(appointments, false);
     }
 
     @PostMapping("/appointments")
     public MappingJacksonValue newAppointment(@RequestBody @Valid AppointmentDto appointmentDto, Principal principal) {
-        return appointmentService.newAppointment(appointmentDto, principal);
+        Appointment appointment = appointmentService.newAppointment(appointmentDto, principal);
+        return appointmentService.createMJVAppointment(appointment, true);
     }
 
     @PutMapping("/appointments/{id}")
     public MappingJacksonValue updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentDto updatedAppointmentDto, Principal principal) {
-        return appointmentService.updateAppointment(id, updatedAppointmentDto, principal);
+        Appointment appointment = appointmentService.updateAppointment(id, updatedAppointmentDto, principal);
+        return appointmentService.createMJVAppointment(appointment, true);
     }
 
     @DeleteMapping("/appointments/{id}")
     public void deleteAppointmentById(@PathVariable Long id) {
-        appointmentService.deleteAppointmentById(id);
+
+        Appointment appointment = appointmentService.getAppointment(id);
+        appointmentService.deleteAppointment(appointment);
     }
 }
