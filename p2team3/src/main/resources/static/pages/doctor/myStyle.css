@@ -1,0 +1,126 @@
+ 
+ /* Patient Details */
+ .card { 
+            margin-top: 100px;
+            border-style: hidden;
+            
+        }
+        #menuIconId{
+          margin-left: 40px;
+          color:#ececec;
+          transition: 0.5s;
+          
+        }
+        #logoId{
+          width:250px;
+          height:70px;
+          border:0px;
+
+        }
+        #mChoice1, #mChoice2, #mChoice3{
+          display:none;
+        }
+        .h5{
+
+          color:#ececec;
+        }
+        .btn{
+          background-color:#0C0C4B;
+          border-style: hidden;
+        }
+		
+        /* doctorAppointments */
+		#conDataTable{
+                background-color:#818181;
+            }
+			#table_id{
+			margin-top:30px;
+            background-color:white;
+        }
+        
+        
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(12, 12, 75, 0.705);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 110px;
+    
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #ececec;
+    display: block;
+    
+    
+}
+
+.sidenav a:hover {
+    color: #a0a0a0;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+#navBar{
+
+    background-color: #0C0C4B;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 8px;
+   
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+#navLinks:link {
+  margin-left: 900px;
+    color:#ececec;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 22px;
+    transition: 0.5s;
+    
+}
+#cardBody {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    
+}
+#navLinks:hover {
+    color: #a0a0a0;
+    background-color: transparent;
+    text-decoration: none;
+}
+#windowHeader{
+  text-align: center;
+  background-color:#0C0C4B;
+  }
+
+body {
+    background-image: url("back1.jpg");
+}

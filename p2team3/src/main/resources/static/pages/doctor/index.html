@@ -3,13 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Εμφάνιση Ραντεβού</title>
+    <title>Λίστα Ραντεβού</title>
     <!--css bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="myStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -17,115 +16,46 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../../scripts/doctor/homepage.js"></script>
 
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        #changeApForm { 
-            margin-top: 100px;
-            
-        }
-        #conDataTable{
-            background-color:#818181
-        }
-        
 
-body {
-    font-family: "Lato", sans-serif;
-    transition: background-color .5s;
-}
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 22px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 22px;
-    margin-left: 50px;
-}
-
-#navBar{
-
-    background-color: #111;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 8px;
-   
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-#navLinks:link {
-    color:#818181;
-    background-color: transparent;
-    text-decoration: none;
-    font-size: 22px;
-    
-}
-#cardBody {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 50px;
-    
-}
-#navLinks:hover {
-    color: #f1f1f1;
-    background-color: transparent;
-    text-decoration: none;
-}
-#windowHeader{text-align: center}
-
-body {
-    background-image: url("back1.jpg");
-}
-
-</style>
 
 
     <script>
+
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("menuIconId").style.opacity = "0.0";
+            document.getElementById("navLinks").style.marginLeft = "708px";
+            document.getElementById("mySidenav").style.width = "210px";
+            document.getElementById("main").style.marginLeft = "210px";
             document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+
+            setTimeout(function () {
+
+                $("#mChoice1").fadeIn(1000);
+                setTimeout(function () {
+                    $("#mChoice2").fadeIn(1000);
+                }, 200);
+
+
+
+            }, 500);
+
         }
 
+
         function closeNav() {
+            document.getElementById("menuIconId").style.opacity = "1.0";
+            document.getElementById("navLinks").style.marginLeft = "900px";
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
             document.body.style.backgroundColor = "white";
+            document.getElementById("mChoice1").style.display = "none";
+            document.getElementById("mChoice2").style.display = "none";
+            
         }
     </script>
 
@@ -134,41 +64,41 @@ body {
 <body>
 
 
-    <div id="mySidenav" class="sidenav">
+   
+  <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Αρχική Σελίδα</a>
-        <a href="#">Νέο Ραντεβού</a>
-        <a href="#">Αναζήτηση</a>
-        <a href="#">Έξοδος</a>
-    </div>
-
-
-
-
-
-
-
-    <div id="navBar" class="container-fluid">
+        <a id="mChoice1" href="doctorAppointments.html">Αρχική Σελίδα</a>
+        <a id="mChoice2" href="#">Έξοδος</a>
+      </div>
+    
+      <div id="navBar" class="container-fluid">
         <div id="main">
-
-            <h2></h2>
-            <p></p>
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-            <a href="default.asp">
-                <img src="smiley.gif" alt="Home" style="width:42px;height:42px;border:0;">
-            </a>
-
-            <a id="navLinks" class="offset-md-9" href="html_images.asp" target="_blank">Αποσύνδεση</a>
-
+    
+          <h2></h2>
+          <p></p>
+          <span id="menuIconId" style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; </span>
+    
+          <a class="offset-md-1" href="doctorAppointments.html">
+            <img id="logoId" src="logoRect.PNG" alt="Home">
+          </a>
+    
+          <a id="navLinks" class="offset-md-7" href="html_images.asp" target="_blank">Αποσύνδεση</a>
+    
         </div>
+    
+      </div>
 
-    </div>
 
-    <img src="av.png" alt="Girl in a jacket" style="width:130px;height:120px;">
+
+
+
+
+
+
 
     <div class="container-fluid col-6">
         <div class="card" id="changeApForm">
-            <h5 id="windowHeader" class="card-header h5 ">Εμφάνιση Ραντεβού</h5>
+            <h5 id="windowHeader" class="card-header h5 ">Λίστα Ραντεβού</h5>
             <div class="card-body" id="cardBody">
 
 
@@ -182,10 +112,12 @@ body {
                     </div>
                 </div>
 
-                <div class="row">
 
+                <div class="row mt-4">
 
-                    <div class="col-sm-4 mt-4">
+                    <label class="col-sm-2 mt-2">Από:</label>
+
+                    <div class="col-sm-4 mr-4">
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                                 <input type="text" id="dateFrom" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
@@ -201,7 +133,10 @@ body {
                         });
                     </script>
 
-                    <div class="col-sm-4 mt-4">
+
+                    <label class="mt-2 mr-4">Έως:</label>
+                    <div class="col-sm-4 ">
+
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                                 <input type="text" id="dateTo" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
@@ -222,8 +157,8 @@ body {
                 </div>
 
 
-                <div class="form-row justify-content-center">
-                    <button type="submit" id="buttonSearch" class="btn btn-primary col-5 mt-4">Αναζήτηση</button>
+                <div class="form-row justify-content-center mt-2">
+                    <button type="submit" id="buttonSearch" class="btn btn-primary col-5 ">Αναζήτηση</button>
                 </div>
 
 
@@ -249,7 +184,6 @@ body {
                         <th>Όνομα Ασθενούς</th>
                         <th>Ασθένεια</th>
                         <th></th>
-
                     </tr>
                 </thead>
                 <tbody>

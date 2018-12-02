@@ -1,5 +1,26 @@
 $(document).ready(function () {
 
+    var table = $('#table_id').DataTable({
+        ajax:{
+            url:'http://localhost:8080/patients/appointments',
+            dataSrc:''
+        },
+        "searching": false,
+        "bLengthChange": false,
+        columns:[
+            {data: 'dateTime'},
+            {data: 'id'},
+            {data: 'doctor.lastName',
+            "render":function(data, type, full, meta){
+                return full.doctor.lastName + ' ' + full.doctor.firstName;}
+            },
+            {data: 'doctor.specialty.name'},
+            {data: null,
+                "render":function(data, type, row, meta){
+                    return "<a class='btn btn-primary' href='http://localhost:8080/pages/patient/editAppointment.html?id=" +data.id+ "'>Επεξεργασία</a>";}
+            }
+        ]
+    });
 
     $.ajax({
         url: ROOT_PATH + "/specialties"
@@ -63,7 +84,15 @@ $(document).ready(function () {
 function formatDate(initDate) {
     const splitDate = initDate.split(" ");
     const date = splitDate[0];
-    const time = splitDate[1];
+    let time = splitDate[1];
+    const pm = splitDate[2];
+    const hoursmins = time.split(":");
+    let hours = hoursmins[0];
+    const mins = hoursmins[1];
+    if(pm=="PM"){
+        const editedhours= Number(hours)+12;
+        time = editedhours.toString().concat(":",mins);
+    }
     const dateParts = date.split("/");
     const year = dateParts[2];
     const month = dateParts[0];

@@ -7,13 +7,13 @@ $(document).ready(function(){
 
             switch (valid_type){
                 case "firstname":
-                    validate(this,value,/^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώ]{1,}$/); 
+                    validate(this,value,/^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώΊΌΆΈΎΉΏ]{1,}$/); 
                     break;
                 case "lastname":
-                    validate(this,value,/^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώ]{1,}$/); 
+                    validate(this,value,/^[A-Za-zΑ-Ωα-ωίϊΐόάέύϋΰήώΊΌΆΈΎΉΏ]{1,}$/); 
                     break;
                 case "amka":
-                    validate(this,value,/^[0-9]{9,11}$/);
+                    validate(this,value,/^[0-9]{11}$/);
                     break;
                 case "mobile":
                     validate(this,value,/^(\d{10,14})$/); 
