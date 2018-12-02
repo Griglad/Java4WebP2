@@ -2,7 +2,7 @@ package org.java4web.model;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.java4web.utils.Utils;
+import org.java4web.utilities.Utils;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -24,15 +24,15 @@ public class Appointment {
     protected Doctor doctor;
 
     @Column(nullable = false, columnDefinition="DATETIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Utils.dateTimeFormat)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Utils.dateTimeFormat, timezone="Europe/Athens")
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date dateTime;
+    private Date dateTime;
 
     @Column
-    protected String descr;
+    private String descr;
 
     @Column(columnDefinition = "TEXT")
-    protected String notes;
+    private String notes;
 
     public Appointment() {
     }

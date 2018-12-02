@@ -1,4 +1,4 @@
-package org.java4web.utils;
+package org.java4web.utilities;
 
 import javax.validation.constraints.NotNull;
 

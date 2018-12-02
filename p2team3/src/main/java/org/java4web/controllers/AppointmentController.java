@@ -2,7 +2,7 @@ package org.java4web.controllers;
 
 import org.java4web.model.Appointment;
 import org.java4web.services.AppointmentService;
-import org.java4web.utils.AppointmentDto;
+import org.java4web.utilities.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;

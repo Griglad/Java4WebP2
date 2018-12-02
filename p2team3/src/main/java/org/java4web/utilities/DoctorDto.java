@@ -1,4 +1,4 @@
-package org.java4web.utils;
+package org.java4web.utilities;
 
 import org.java4web.model.Doctor;
 import org.java4web.model.Specialty;
