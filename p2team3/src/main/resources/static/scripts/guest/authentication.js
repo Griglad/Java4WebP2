@@ -1,8 +1,12 @@
 function login(usernameElement, passwordElement, ddRoleElement) {
-    let username = usernameElement && usernameElement.value ? usernameElement.value : "";
-    let password = passwordElement && passwordElement.value ? passwordElement.value : "";
+    let username = usernameElement;
+    let password = passwordElement;
     let role =  "p";
-
+    //alert("Hey "+usernameElement.value);
+    if(ddRoleElement=='Γιατρός'){
+        alert("Hey doc!");
+        role = "d";
+    }
     var fd = new FormData();
     fd.append( 'username', role+username);
     fd.append( 'password', password);

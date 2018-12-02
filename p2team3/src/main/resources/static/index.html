@@ -19,6 +19,7 @@
     <script src="scripts/config/main.js"></script>
     <script src="scripts/security/guest-auth.js"></script>
     <script src="scripts/guest/authentication.js"></script>
+    <script src="scripts/guest/loginPage.js"></script>
 
     
 
@@ -106,9 +107,8 @@
                         Ασθενής
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Ασθενής</a>
+                        <a class="dropdown-item" href="#">Γιατρός</a>
                     </div>
 
 
@@ -126,7 +126,7 @@
                         <input class="input-field" type="password" placeholder="Password" id="InputPassword" name="password">
                     </div>
 
-                    <input type="button" value="Login" class="btn" onclick="login(inputUsername,InputPassword, InputPassword);">
+                    <input type="button" id="loginButton" value="Login" class="btn">
                    
                     <a href="pages/guest/registration.html" >Register</a>
                     
