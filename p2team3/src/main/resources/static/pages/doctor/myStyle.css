@@ -33,7 +33,10 @@
 		#conDataTable{
                 background-color:#818181;
             }
-			
+			#canDataTable{
+                margin-top:30px;
+                background-color:white;
+            }
         
         
 body {
