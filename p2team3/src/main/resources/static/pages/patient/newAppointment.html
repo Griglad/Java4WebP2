@@ -6,154 +6,91 @@
     <title>Νέο Ραντεβού</title>
     <!--css bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../myStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
     <script type="text/javascript" src="../../scripts/patient/newAppointment.js"></script>
     <script type="text/javascript" src="../../scripts/config/main.js"></script>
     <script type="text/javascript" src="../../scripts/patient/homepage.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        #registerForm { 
-           
-            margin-top: 100px;
-           
-        }
-body {
-    font-family: "Lato", sans-serif;
-    transition: background-color .5s;
-}
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 22px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 22px;
-    margin-left: 50px;
-}
-
-#navBar{
-
-    background-color: #111;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 8px;
    
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-#navLinks:link {
-    color:#818181;
-    background-color: transparent;
-    text-decoration: none;
-    font-size: 22px;
-    
-}
-#cardBody {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 50px;
-    
-}
-#navLinks:hover {
-    color: #f1f1f1;
-    background-color: transparent;
-    text-decoration: none;
-}
-#windowHeader{text-align: center}
-
-body {
-    background-image: url("back1.jpg");
-}
-
-</style>
 
 
     <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        }
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            document.body.style.backgroundColor = "white";
-        }
-    </script>
+            function openNav() {
+                document.getElementById("menuIconId").style.opacity = "0.0";
+                document.getElementById("navLinks").style.marginLeft = "708px";
+                document.getElementById("mySidenav").style.width = "210px";
+                document.getElementById("main").style.marginLeft = "210px";
+                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    
+                setTimeout(function () {
+    
+                    $("#mChoice1").fadeIn(1000);
+                    setTimeout(function () {
+                        $("#mChoice2").fadeIn(1000);
+                    }, 200);
+                    setTimeout(function () {
+                        $("#mChoice3").fadeIn(1000);
+                    }, 400);
+    
+    
+    
+                }, 500);
+    
+            }
+    
+    
+            function closeNav() {
+                document.getElementById("menuIconId").style.opacity = "1.0";
+                document.getElementById("navLinks").style.marginLeft = "900px";
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+                document.body.style.backgroundColor = "white";
+                document.getElementById("mChoice1").style.display = "none";
+                document.getElementById("mChoice2").style.display = "none";
+                document.getElementById("mChoice3").style.display = "none";
+                
+            }
+        </script>
 
 </head>
 
 <body>
 
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="../patient/index.html">Αρχική Σελίδα</a>
-        <a href="#">Νέο Ραντεβού</a>
-        
-        <a href="#" onclick="logout()">Έξοδος</a>
-    </div>
-
-
-
-
-
-
-
-    <div id="navBar" class="container-fluid">
-        <div id="main">
-
-            <h2></h2>
-            <p></p>
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-            <a href="default.asp">
-                <img src="logo.gif" alt="Home" style="width:42px;height:42px;border:0;">
-            </a>
-
-            <a id="navLinks" class="offset-md-9" onclick="logout()" target="_blank">Αποσύνδεση</a>
-
-        </div>
-
-    </div>
+        <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a id="mChoice1" href="index.html">Αρχική Σελίδα</a>
+                <a id="mChoice2" href="newAppointment.html">Νέο Ραντεβού</a>
+                <a id="mChoice3" href="#" onclick="return logout();">Έξοδος</a>
+              </div>
+            
+              <div id="navBar" class="container-fluid">
+                <div id="main">
+            
+                  <h2></h2>
+                  <p></p>
+                  <span id="menuIconId" style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; </span>
+            
+                  <a class="offset-md-1" href="doctorAppointments.html">
+                    <img id="logoId" src="../logoRect.PNG" alt="Home">
+                  </a>
+            
+                  <a id="navLinks" class="offset-md-7"  target="_blank">Αποσύνδεση</a>
+            
+                </div>
+            
+              </div>
 
 
     <div class="container-fluid col-5">
@@ -163,17 +100,17 @@ body {
 
 
                 <div class="row">
-                        <div class="dropdown">
+                        <div class="dropdown offset-md-2">
                                 <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle btn btn-primary"
                                   href="#">
                                   <span id="selected1">Ειδικότητα</span><span class="caret"></span></a>
                                 <ul class="dropdown-menu" id="dp1">
                                 </ul>
                               </div>
-                </div>
+                
 
-                <div class="row ">
-                    <div class="dropdown mt-3">
+                
+                    <div class="dropdown offset-md-3 ">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Γιατρός
@@ -191,9 +128,10 @@ body {
 
                 <div class="container">
                     <div class="row">
+                            <label class=" label col-6 mt-4">Ημέρα και ώρα ραντεβού:</label>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <div class="input-group date mt-4" id="datetimepicker1" data-target-input="nearest">
                                     <input type="text" id="dateTime" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
                                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -203,7 +141,7 @@ body {
                         </div>
                         <script type="text/javascript">
                             $(function () {
-                                $('#datetimepicker1').datetimepicker({defaultDate: new Date()});
+                                $('#datetimepicker1').datetimepicker();
                             });
                         </script>
                     </div>
@@ -214,19 +152,19 @@ body {
 
 
 
-                <div class="row mt-3">
-                    <label for="descriptionTextArea">Περιγραφή συμπτωμάτων:</label>
+                <div class="row ">
+                    <label class="label" for="descriptionTextArea ">Περιγραφή συμπτωμάτων:</label>
                     <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
                 </div>
 
                 <div class="row mt-3">
-                    <label for="notesTextArea">Παρατηρήσεις:</label>
+                    <label class="label" for="notesTextArea">Παρατηρήσεις:</label>
                     <textarea class="form-control" id="notesTextArea" rows="3"></textarea>
                 </div>
 
                 <div class="container-fluid mt-4">
                     <div class="form-row justify-content-end">
-                        <a type="button" href="../patient/index.html" id="buttonBack" class="btn btn-primary mr-4">Πίσω</a>
+                        <button type="button" id="buttonBack" class="btn btn-primary mr-4" >Πίσω</button>
                         <button type="submit" id="buttonCreate" class="btn btn-primary">Δημιουργία</button>
                     </div>
                 </div>

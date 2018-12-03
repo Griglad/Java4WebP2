@@ -22,14 +22,14 @@ $(document).ready(function () {
     }).then(function (appointment) {
         $("#specialty").attr("value", appointment.doctor.specialty.name);
         $("#doctor").attr("value", appointment.doctor.firstName + " " + appointment.doctor.lastName);
-        $('#appointmentDate').attr("value", appointment.dateTime);
+        $('#appDate').attr("value", appointment.dateTime);
         $("#descriptionTextArea").text(appointment.descr);
         $("#notesTextArea").text(appointment.notes);
 
-        var appointDate = $("#appointmentDate").attr("value");
+        var appointDate = $("#appDate").attr("value");
 
 
-        $("#appointmentDate").change(function () {
+        $("#appDate").change(function () {
             appointDate = formatDate($(this).attr("value"));
         });
 
@@ -37,8 +37,8 @@ $(document).ready(function () {
 
 
         $("#buttonUpdate").click(function () {
-            if ($("#appointmentDate").val() != appointDate) {
-                appointDate = formatDate($("#appointmentDate").val());
+            if ($("#appDate").val() != appointDate) {
+                appointDate = formatDate($("#appDate").val());
             }
             var editedData = {
                 "descr": $("#descriptionTextArea").val(),

@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
-
+    $("#buttonBack").click(function(){
+        window.location.replace(ROOT_PATH+"/pages/patient/index.html");
+    });
+    
     $.ajax({
         url: ROOT_PATH + "/specialties"
     }).then(function (specialties) {
@@ -51,9 +54,10 @@ $(document).ready(function () {
                 })
 
 
+
             }).fail(function(){
                 $('#dp2').empty();
-                $('#selected2').text("Γιατρός");
+                $('#dropdownMenuButton').text("Γιατρός");
             });
         });
     });

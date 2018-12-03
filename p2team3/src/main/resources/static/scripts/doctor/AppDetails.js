@@ -20,16 +20,12 @@ $(document).ready(function () {
     $.ajax({
         url: ROOT_PATH + "/appointments/" + appId
     }).then(function (appointment) {
-        $("#descriptionTextField").text(appointment.descr);
-        $("#detailsTextField").text(appointment.notes);
+        $("#descriptionTextArea").text(appointment.descr);
+        $("#notesTextArea").text(appointment.notes);
+        $("#patientName").val(appointment.patient.lastName + " " + appointment.patient.firstName);
+        $("#patientAmka").val(appointment.patient.amka);
+        $("#dateTime").val(appointment.dateTime);
         $("#patientDetails").attr("href",ROOT_PATH + "/pages/doctor/patientDetails.html?id=" + appointment.patient.id + "&appid=" + appointment.id);
-
-        //var appointDate = $("#appointmentDate").attr("value");
-
-
-       // $("#appointmentDate").change(function () {
-       //     appointDate = formatDate($(this).attr("value"));
-       // });
 
     });
 });

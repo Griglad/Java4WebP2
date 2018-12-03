@@ -6,7 +6,8 @@
     <title>Σύνδεση Χρήστη</title>
     <!--css bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="pages/myStyle.css">   
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -21,74 +22,75 @@
     <script src="scripts/guest/authentication.js"></script>
     <script src="scripts/guest/loginPage.js"></script>
 
+
     
 
     
     <style>
-        body {
-           /* background-image: url("./pages/guest/bg.png");    */
-           background-image: url("bg.png");
-        }
-        #loginForm { 
-            margin-top: 100px;
-            text-align: center;           
-            
-        }
-        #windowHeader{text-align: center}
-
-        body {font-family: Arial, Helvetica, sans-serif;}
-        * {box-sizing: border-box;}
-        #dropdownSpecialty{
-            height: 40px;
-            padding-top: 0;
-            padding-bottom: 0;
-
-        }
-
-.input-container {
-    display: -ms-flexbox; /* IE10 */
-    display: flex;
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.icon {
-    padding: 10px;
-    background: dodgerblue;
-    color: white;
-    min-width: 50px;
-    text-align: center;
-}
-
-.input-field {
-    width: 100%;
-    padding: 10px;
-    outline: none;
-}
-
-.input-field:focus {
-    border: 2px solid dodgerblue;
-}
-
-/* Set a style for the submit button */
-.btn {
-    background-color: dodgerblue;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-}
-.icon{
-    padding-top: 14px;
-}
-
-.btn:hover {
-    opacity: 1;
-}
-
-    </style>
+            body {
+               /* background-image: url("./pages/guest/bg.png");    */
+               background-image: url("bg.png");
+            }
+            #loginForm { 
+                margin-top: 100px;
+                text-align: center;           
+                
+            }
+            #windowHeader{text-align: center}
+    
+            body {font-family: Arial, Helvetica, sans-serif;}
+            * {box-sizing: border-box;}
+            #dropdownSpecialty{
+                height: 40px;
+                padding-top: 0;
+                padding-bottom: 0;
+    
+            }
+    
+    .input-container {
+        display: -ms-flexbox; /* IE10 */
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .icon {
+        padding: 10px;
+        background: #0C0C4B;
+        color: white;
+        min-width: 50px;
+        text-align: center;
+    }
+    
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        outline: none;
+    }
+    
+    .input-field:focus {
+        border: 2px solid #0C0C4B;
+    }
+    
+    /* Set a style for the submit button */
+    .btn {
+        background-color: #0C0C4B;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+    .icon{
+        padding-top: 14px;
+    }
+    
+    .btn:hover {
+        opacity: 1;
+    }
+    
+        </style>
 
 
 </head>
@@ -128,7 +130,7 @@
 
                     <input type="button" id="loginButton" value="Login" class="btn">
                    
-                    <a href="pages/guest/registration.html" >Register</a>
+                    <a  href="pages/guest/registration.html" >Register</a>
                     
 
                     <!--This is a hidden message to be show only in case of failed login atempt -->

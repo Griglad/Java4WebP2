@@ -7,7 +7,7 @@
   <!--css bootstrap -->
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="myStyle.css">
+  <link rel="stylesheet" type="text/css" href="../myStyle.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -18,6 +18,7 @@
     <script src="../../scripts/config/main.js"></script>
     <script src="../../scripts/patient/homepage.js"></script>
     
+    
 
 
 
@@ -26,7 +27,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+<style>
+.row{
+  border-width: 7px; 
+}
+</style>
  
 
 
@@ -74,7 +79,7 @@
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a id="mChoice1" href="index.html">Αρχική Σελίδα</a>
-    <a id="mChoice2" >Έξοδος</a>
+    <a id="mChoice2" href="#" onclick="return logout();">Έξοδος</a>
   </div>
 
 
@@ -87,10 +92,10 @@
       <span id="menuIconId" style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; </span>
 
       <a class="offset-md-1" href="doctorAppointments.html">
-        <img id="logoId" src="logoRect.PNG" alt="Home">
+        <img id="logoId" src="../logoRect.PNG" alt="Home">
       </a>
 
-      <a id="navLinks" class="offset-md-7" href="html_images.asp" target="_blank">Αποσύνδεση</a>
+      <a id="navLinks" class="offset-md-7"  target="_blank">Αποσύνδεση</a>
 
     </div>
 
@@ -102,23 +107,23 @@
       <h5 id="windowHeader" class="card-header h5 ">Στοιχεία Ασθενή</h5>
       <div class="card-body" id="cardBody">
 
-        <div class="row mt-3">
-          <label>Ονοματεπώνυμο:</label>
+        <div class="row mt-3 label">
+          <label class="mr-2 label">Ονοματεπώνυμο:</label>
           <label id="nameField"></label>
         </div>
 
-        <div class="row mt-3">
-          <label>Α.Μ.Κ.Α.:</label>
+        <div class="row mt-3 label">
+          <label class="mr-2">Α.Μ.Κ.Α.:</label>
           <label id="amkaField"></label>
         </div>
 
-        <div class="row mt-3">
-          <label>Τηλέφωνο:</label>
+        <div class="row mt-3 label">
+          <label class="mr-2">Τηλέφωνο:</label>
           <label id="phoneField"></label>
         </div>
 
-        <div class="row mt-3">
-          <label>Email:</label>
+        <div class="row mt-3 label">
+          <label class="mr-2">Email:</label>
           <label id="emailField"></label>
         </div>
 
